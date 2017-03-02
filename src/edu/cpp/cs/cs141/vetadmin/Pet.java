@@ -7,7 +7,6 @@ import java.util.ArrayList;
  */
 public abstract class Pet {
 
-    private String breed;
     private Owner owner;
     private String name;
     private int age;
@@ -26,10 +25,6 @@ public abstract class Pet {
         this.name = name;
         this.age = age;
     }
-
-    public abstract String getBreed();
-
-    public abstract void setBreed(String breed);
 
     public Owner getOwner(){
         return owner;
