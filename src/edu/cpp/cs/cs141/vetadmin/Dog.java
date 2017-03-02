@@ -15,7 +15,7 @@ public class Dog extends Pet {
    private DogBreed breed;
 
    public Dog(String name, int age, int breed){
-       super(name, age);
+       super(name, age, AnimalType.DOG);
 
        switch(breed){
            case 0:

@@ -15,7 +15,7 @@ public class Cat extends Pet{
     private CatBreed breed;
 
     public Cat(String name, int age, int breed){
-        super(name, age);
+        super(name, age, AnimalType.CAT);
 
         switch(breed){
             case 0:
