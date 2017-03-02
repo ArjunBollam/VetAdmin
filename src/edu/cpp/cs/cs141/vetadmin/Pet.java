@@ -13,7 +13,7 @@ public abstract class Pet {
     private int age;
     private ArrayList<String> medHist = new ArrayList<>();
     private ArrayList<String> vaccinations = new ArrayList<>();
-    private ArrayList<Appointmet> appointments = new ArrayList<>();
+    private ArrayList<Appointment> appointments = new ArrayList<>();
 
     public Pet(String name, int age){
         owner = new Owner();
@@ -79,7 +79,7 @@ public abstract class Pet {
         vaccinations.remove(index);
     }
 
-    public ArrayList<Appointmet> getAppointments(){
+    public ArrayList<Appointment> getAppointments(){
         return appointments;
     }
 

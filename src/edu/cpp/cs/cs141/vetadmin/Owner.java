@@ -15,6 +15,12 @@ public class Owner {
 
     private ArrayList<Pet> pets = new ArrayList<>();
 
+    public Owner(){
+        name = "";
+        address = "";
+        phone = "";
+    }
+
     public Owner(String name, String address, String phone){
         this.name = name;
         this.address = address;
