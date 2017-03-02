@@ -11,26 +11,20 @@ public abstract class Pet {
     private Owner owner;
     private String name;
     private int age;
-    private ArrayList<String> medHist;
-    private ArrayList<String> vaccinations;
-    private ArrayList<Appointmet> appointments;
+    private ArrayList<String> medHist = new ArrayList<>();
+    private ArrayList<String> vaccinations = new ArrayList<>();
+    private ArrayList<Appointmet> appointments = new ArrayList<>();
 
-    public Pet(){
+    public Pet(String name, int age){
         owner = new Owner();
-        name = "";
-        age = 0;
-        medHist = new ArrayList<>();
-        vaccinations = new ArrayList<>();
-        appointments = new ArrayList<>();
+        this.name = name;
+        this.age = age;
     }
 
-    public Pet(Owner owner){
+    public Pet(Owner owner, String name, int age){
         this.owner = owner;
-        name = "";
-        age = 0;
-        medHist = new ArrayList<>();
-        vaccinations = new ArrayList<>();
-        appointments = new ArrayList<>();
+        this.name = name;
+        this.age = age;
     }
 
     public abstract String getBreed();
@@ -43,6 +37,14 @@ public abstract class Pet {
 
     public void setOwner(Owner owner){
         this.owner = owner;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getAge(){

@@ -15,16 +15,16 @@ public class Owner {
 
     private ArrayList<Pet> pets = new ArrayList<>();
 
-    public Owner(){
-        name = "";
-        address = "";
-        phone = "";
+    public Owner(String name, String address, String phone){
+        this.name = name;
+        this.address = address;
+        this.phone = phone;
     }
 
-    public Owner(Pet pet){
-        name = "";
-        address = "";
-        phone = "";
+    public Owner(String name, String address, String phone, Pet pet){
+        this.name = name;
+        this.address = address;
+        this.phone = phone;
         pets.add(pet);
     }
 
