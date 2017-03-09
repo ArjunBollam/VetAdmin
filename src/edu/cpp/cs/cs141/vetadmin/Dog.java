@@ -1,9 +1,13 @@
 package edu.cpp.cs.cs141.vetadmin;
 
 /**
- * Created by chocolatecharme on 3/2/17.
+ * This class represents a {@link Pet} that is specialized to be a Dog.
  */
 public class Dog extends Pet {
+    /**
+     * This enum type contains the breeds of dog that are defined in this
+     * program
+     */
    public enum DogBreed{
        HUSKY,
        PUG,
@@ -12,8 +16,18 @@ public class Dog extends Pet {
        PEKINGESE;
    }
 
+    /**
+     * The breed of the cat with type {@link DogBreed}
+     */
    private DogBreed breed;
 
+    /**
+     * The constructor for the {@link Dog} class.
+     *
+     * @param name The name to be set
+     * @param age The age to be set
+     * @param breed The breed to be set
+     */
    public Dog(String name, int age, int breed){
        super(name, age, AnimalType.DOG);
 
@@ -35,10 +49,16 @@ public class Dog extends Pet {
        }
    }
 
+    /**
+     * @return The {@link #breed} of {@code this} {@link Dog}
+     */
     public DogBreed getBreed() {
         return breed;
     }
 
+    /**
+     * @param breed The breed to be set for {@code this} {@link Dog}
+     */
     public void setBreed(DogBreed breed) {
         this.breed = breed;
     }

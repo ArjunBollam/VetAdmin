@@ -1,9 +1,13 @@
 package edu.cpp.cs.cs141.vetadmin;
 
 /**
- * Created by chocolatecharme on 3/2/17.
+ * This class represents a {@link Pet} that is specialized to be a Cat.
  */
 public class Cat extends Pet{
+    /**
+     * This enum type contains the breeds of cat that are defined in this
+     * program
+     */
     public enum CatBreed{
         SIAMESE,
         PERSIAN,
@@ -12,8 +16,18 @@ public class Cat extends Pet{
         SIBERIAN;
     }
 
+    /**
+     * The breed of the cat with type {@link CatBreed}
+     */
     private CatBreed breed;
 
+    /**
+     * The constructor for the {@link Cat} class.
+     *
+     * @param name The name to be set
+     * @param age The age to be set
+     * @param breed The breed to be set
+     */
     public Cat(String name, int age, int breed){
         super(name, age, AnimalType.CAT);
 
@@ -35,10 +49,16 @@ public class Cat extends Pet{
         }
     }
 
+    /**
+     * @return The {@link #breed} of {@code this} {@link Cat}
+     */
     public CatBreed getBreed() {
         return breed;
     }
 
+    /**
+     * @param breed The breed to be set for {@code this} {@link Cat}
+     */
     public void setBreed(CatBreed breed) {
         this.breed = breed;
     }

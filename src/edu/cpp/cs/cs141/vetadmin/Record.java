@@ -1,16 +1,29 @@
 package edu.cpp.cs.cs141.vetadmin;
 
 /**
- * Created by chocolatecharme on 3/2/17.
+ * This class represents the record for a {@link Pet}. It contains
+ * all of the information for one specific {@link Pet}.
  */
 public class Record {
 
+    /**
+     * The {@link Pet} that the record is for
+     */
     private Pet pet;
 
+    /**
+     * This is the constructor for the {@link Record} class
+     *
+     * @param pet The {@link Pet} to be set
+     */
     public Record(Pet pet) {
         this.pet = pet;
     }
 
+    /**
+     * @return The {@code String} representation of
+     * {@code this} {@link Record}
+     */
     public String toString() {
         String breed = "";
         switch (pet.getType()) {
