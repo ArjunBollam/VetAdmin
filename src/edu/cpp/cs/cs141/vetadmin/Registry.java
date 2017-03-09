@@ -106,9 +106,18 @@ public class Registry implements Serializable{
      * {@link Registry}.
      */
     public String toString(){
-        String str = "----------";
+        String str = "------------------";
         for(Record pet : records){
-            str +=  pet;
+            str +=  "\n" + (records.indexOf(pet) + 1) + " | \n" + pet;
+        }
+
+        return str;
+    }
+
+    public String printPets(){
+        String str = "------------------";
+        for(Pet pet : pets){
+            str +=  "\n" + (records.indexOf(pet) + 1) + ". " + pet.getName();
         }
 
         return str;
