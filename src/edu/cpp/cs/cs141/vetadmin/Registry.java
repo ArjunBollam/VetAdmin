@@ -2,6 +2,7 @@ package edu.cpp.cs.cs141.vetadmin;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * This class represents the registry for the vet clinic. It contains
@@ -106,15 +107,21 @@ public class Registry implements Serializable{
      * {@link Registry}.
      */
     public String toString(){
+        Collections.sort(records);
         String str = "------------------";
         for(Record pet : records){
-            str +=  "\n" + (records.indexOf(pet) + 1) + " | \n" + pet;
+            str +=  "\n-----" + (records.indexOf(pet) + 1) + "-----\n" + pet;
         }
 
         return str;
     }
 
-    public String printPets(){
+    public void printRegistry(){
+        UI.print(this.toString());
+    }
+
+    public String stringPets(){
+        Collections.sort(pets);
         String str = "------------------";
         for(Pet pet : pets){
             str +=  "\n" + (records.indexOf(pet) + 1) + ". " + pet.getName();
@@ -160,7 +167,7 @@ public class Registry implements Serializable{
      * This method will allow the {@link Pet}'s name to be edited.
      *
      * @param index The index of the pet
-     * @param name Teh name to be set
+     * @param name The name to be set
      */
     public void editPetName(int index, String name){
         pets.get(index).setName(name);

@@ -4,7 +4,7 @@ package edu.cpp.cs.cs141.vetadmin;
  * This class represents the record for a {@link Pet}. It contains
  * all of the information for one specific {@link Pet}.
  */
-public class Record {
+public class Record implements Comparable<Record> {
 
     /**
      * The {@link Pet} that the record is for
@@ -37,12 +37,21 @@ public class Record {
                 breed = ((Fish) pet).getBreed().toString();
         }
 
-        return "Name: " + pet.getName() +
+        return  "Name: " + pet.getName() +
                 "\nOwner: " + pet.getOwner().getName() +
                 "\nAge: " + pet.getAge() +
                 "\nBreed: " + breed +
-                "\nMedical History:\n" + pet.printMedHist() +
-                "\nVaccinations:\n" + pet.printVaccinations() +
-                "\nCurrent Appointments:\n" + pet.printAppointments();
+                "\nMedical History:\n" + pet.stringMedHist() +
+                "\nVaccinations:\n" + pet.stringVaccinations() +
+                "\nCurrent Appointments:\n" + pet.toString();
+    }
+
+    public void print() {
+        UI.print(this.toString());
+    }
+
+    @Override
+    public int compareTo(Record rec){
+        return pet.getName().compareToIgnoreCase(rec.pet.getName());
     }
 }

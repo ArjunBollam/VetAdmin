@@ -107,4 +107,8 @@ public class Appointment {
                 "\nTime: " + time +
                 "\nStatus: " + status;
     }
+
+    public void print(){
+        UI.print(this.toString());
+    }
 }

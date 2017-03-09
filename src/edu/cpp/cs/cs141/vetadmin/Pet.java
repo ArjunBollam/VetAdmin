@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * {@link #age}, medical history ({@link #medHist}),
  * {@link #vaccinations}, and {@link #appointments}.
  */
-public abstract class Pet {
+public abstract class Pet implements Comparable<Pet>{
 
     /**
      * The {@link Owner} that the {@code this} {@link Pet}
@@ -142,7 +142,7 @@ public abstract class Pet {
      * @return The {@code String} representation of {@code this}
      * {@link Pet}'s {@link #medHist}.
      */
-    public String printMedHist(){
+    public String stringMedHist(){
         String str = "";
         if(medHist.isEmpty()){
             return "No medical history.";
@@ -183,7 +183,7 @@ public abstract class Pet {
      * @return The {@code String} representation of {@code this}
      * {@link Pet}'s {@link #vaccinations}
      */
-    public String printVaccinations(){
+    public String stringVaccinations(){
         String str = "";
         if(vaccinations.isEmpty()){
             return "No vaccinations.";
@@ -224,15 +224,19 @@ public abstract class Pet {
      * @return The {@code String} representation of {@code this} {@link Pet}'s
      * {@link #appointments}
      */
-    public String printAppointments(){
-            String str = "";
+    public String toString(){
             if(appointments.isEmpty()){
                 return "No current appointments.";
             }
             for(Appointment line : appointments){
-                str += (appointments.indexOf(line) + 1) + ". " + line.toString() + "\n";
+                int place = appointments.indexOf(line) + 1;
+                return place + ". " + line.toString();
             }
-            return str;
+            return "";
+    }
+
+    public void printAppointments(){
+        UI.print(this.toString());
     }
 
     /**
@@ -250,6 +254,11 @@ public abstract class Pet {
      */
     public void removeAppointment(int index){
         appointments.remove(index);
+    }
+
+    @Override
+    public int compareTo(Pet pet){
+        return this.name.compareToIgnoreCase(pet.getName());
     }
 
 }
