@@ -59,6 +59,10 @@ public class Registry implements Serializable{
         return records;
     }
 
+    public Record getRecord(int index){
+        return records.get(index);
+    }
+
     /**
      * @param pet The {@link Pet} to be added
      */
@@ -110,7 +114,8 @@ public class Registry implements Serializable{
         Collections.sort(records);
         String str = "------------------";
         for(Record pet : records){
-            str +=  "\n-----" + (records.indexOf(pet) + 1) + "-----\n" + pet;
+            int index = records.indexOf(pet) + 1;
+            str +=  "\n-----" + index + "-----\n" + pet;
         }
 
         return str;
@@ -124,8 +129,10 @@ public class Registry implements Serializable{
         Collections.sort(pets);
         String str = "------------------";
         for(Pet pet : pets){
-            str +=  "\n" + (records.indexOf(pet) + 1) + ". " + pet.getName();
+            int index = pets.indexOf(pet) + 1;
+            str +=  "\n" + index + ". " + pet.getName();
         }
+        str += "\n------------------";
 
         return str;
     }
@@ -211,5 +218,11 @@ public class Registry implements Serializable{
      */
     public void editOwnerPhone(int index, String phone){
         pets.get(index).getOwner().setPhone(phone);
+    }
+
+    public void sort(){
+        Collections.sort(records);
+        Collections.sort(pets);
+        Collections.sort(owners);
     }
 }

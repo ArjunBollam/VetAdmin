@@ -60,6 +60,7 @@ public abstract class Pet implements Comparable<Pet>{
      */
     public Pet(String name, int age, AnimalType type){
         owner = new Owner();
+        owner.setName("Not Registered");
         this.name = name;
         this.age = age;
         this.type = type;
@@ -148,7 +149,8 @@ public abstract class Pet implements Comparable<Pet>{
             return "No medical history.";
         }
         for(String line : medHist){
-            str += (medHist.indexOf(line) + 1) + ". " + line + "\n";
+            int index = medHist.indexOf(line) + 1;
+            str += index + ". " + line + "\n";
         }
         return str;
     }
@@ -161,7 +163,7 @@ public abstract class Pet implements Comparable<Pet>{
      * @param status The status of the disease
      */
     public void addMedHist(String disease, String status){
-        medHist.add(disease + " " + status);
+        medHist.add(disease + " | " + status);
     }
 
     /**
@@ -189,7 +191,8 @@ public abstract class Pet implements Comparable<Pet>{
             return "No vaccinations.";
         }
         for(String line : vaccinations){
-            str += (vaccinations.indexOf(line) + 1) + ". " + line + "\n";
+            int index = vaccinations.indexOf(line) + 1;
+            str += index + ". " + line + "\n";
         }
         return str;
     }
@@ -224,7 +227,7 @@ public abstract class Pet implements Comparable<Pet>{
      * @return The {@code String} representation of {@code this} {@link Pet}'s
      * {@link #appointments}
      */
-    public String toString(){
+    public String stringAppointments(){
             if(appointments.isEmpty()){
                 return "No current appointments.";
             }
@@ -236,7 +239,7 @@ public abstract class Pet implements Comparable<Pet>{
     }
 
     public void printAppointments(){
-        UI.print(this.toString());
+        UI.print(this.stringAppointments());
     }
 
     /**

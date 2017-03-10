@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * {@link #name}, {@link #address}, and {@link #phone} number of
  * the owner.
  */
-public class Owner {
+public class Owner implements Comparable<Owner>{
 
     /**
      * The name of the owner as a {@code String}
@@ -133,6 +133,11 @@ public class Owner {
      */
     public void removePet(int index){
         pets.remove(index);
+    }
+
+    @Override
+    public int compareTo(Owner own){
+        return this.name.compareToIgnoreCase(own.getName());
     }
 
 }

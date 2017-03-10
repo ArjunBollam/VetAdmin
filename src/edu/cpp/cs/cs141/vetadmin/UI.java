@@ -50,6 +50,7 @@ public class UI {
             registry.createRecord(registry.getPets().get(1));
             registry.newFish("Kai", 3, 1);
             registry.createRecord(registry.getPets().get(2));
+            registry.sort();
         }
 
         mainMenu();
@@ -59,7 +60,7 @@ public class UI {
      * This method is the main menu for the program
      */
     private void mainMenu(){
-        System.out.println("--------MAIN MENU--------" +
+        System.out.print("--------MAIN MENU--------" +
                 "\nPlease make a selection: " +
                 "\n1. Registry - View or search for pets and owners" +
                 "\n2. Appointments - View, edit, and create appointments" +
@@ -90,8 +91,8 @@ public class UI {
     }
 
     private void registryDialogue(){
-        System.out.println("--------Now Viewing Registry--------");
-        System.out.println("Please make a selection:" +
+        System.out.println("--------NOW VIEWING REGISTRY--------");
+        System.out.print("Please make a selection:" +
                 "\n1. Pets - View all pets" +
                 "\n2. Owners - View all owners" +
                 "\n3. Search - Search the registry for pets and owners" +
@@ -132,8 +133,9 @@ public class UI {
         }
 
         System.out.print("Please make a selection:" +
-                "\n1. Select - Display options for a specific pet" +
-                "\n2. Back" +
+                "\n1. Select - Display record and options for a specific pet" +
+                "\n2. View Records - Display the records for all pets" +
+                "\n3. Back" +
                 "\n0. Quit" +
                 "\n> ");
 
@@ -143,9 +145,12 @@ public class UI {
             switch(choice){
                 case 1: System.out.print("Please enter the number of the pet:\n> ");
                         int pet = in.nextInt();
-                        petOptions(registry.getPets().get(pet));
+                        petOptions(registry.getPets().get(--pet));
                         break;
-                case 2: registryDialogue();
+                case 2: registry.printRegistry();
+                        viewPets();
+                        break;
+                case 3: registryDialogue();
                         break;
                 case 0: exit();
                 default:
@@ -160,14 +165,27 @@ public class UI {
     }
 
     private void petOptions(Pet pet){
-        System.out.println("--------NOW VIEWING " + pet.getName().toUpperCase() + "'s RECORD--------");
-        System.out.println("Please make a selection:" +
-                "\n1. Edit Info - Edit " + pet.getName() + "'s name, age, and more" +
-                "\n2. New Appointment - Book a new appointment for " + pet.getName() +
-                "\n3. Deregister - Search the registry for pets and owners" +
-                "\n4. Back" +
-                "\n0. Quit" +
-                "\n> ");
+        System.out.println("--------NOW VIEWING " + pet.getName().toUpperCase() + "'S RECORD--------");
+        System.out.println(registry.getRecord(registry.getPets().indexOf(pet)));
+
+        if(pet.getOwner().getName().equals("Not Registered")){
+            System.out.print("Please make a selection:" +
+                    "\n1. Edit Info - Edit " + pet.getName() + "'s name, age, and more" +
+                    "\n2. New Appointment - Book a new appointment for " + pet.getName() +
+                    "\n3. Deregister - Remove " + pet.getName() + " from the registry" +
+                    "\n4. Back" +
+                    "\n5. Register Owner - Add " + pet.getName() + "'s owner to the registry" +
+                    "\n0. Quit" +
+                    "\n> ");
+        } else {
+            System.out.print("Please make a selection:" +
+                    "\n1. Edit Info - Edit " + pet.getName() + "'s name, age, and more" +
+                    "\n2. New Appointment - Book a new appointment for " + pet.getName() +
+                    "\n3. Deregister - Remove " + pet.getName() + " from the registry" +
+                    "\n4. Back" +
+                    "\n0. Quit" +
+                    "\n> ");
+        }
 
         try{
             int choice = in.nextInt();
@@ -181,28 +199,36 @@ public class UI {
                         break;
                 case 4: viewPets();
                         break;
+                case 5: registerOwner(pet);
+                        break;
                 case 0: exit();
                 default:
                     System.out.println("Invalid entry! Please try again.\n");
-                    registryDialogue();
+                    petOptions(pet);
             }
         } catch(InputMismatchException e){
             System.out.println("Invalid entry! Please try again.\n");
             in.nextLine();
-            registryDialogue();
+            petOptions(pet);
         }
     }
 
     public void editPet(Pet pet){
         System.out.println("--------NOW EDITING " + pet.getName().toUpperCase() +
-                "'s RECORD--------" +
-                "\nYou can either 1) Enter new info OR 2) Press [ENTER] to keep info the same.");
+                "'S RECORD--------" +
+                "\nYou can either 1) Enter new info OR 2) Press [ENTER] for no change.");
 
+        in.nextLine();
         newPetName(pet);
+        in.nextLine();
         newPetAge(pet);
+        in.nextLine();
         addMedHistDialogue(pet);
+        in.nextLine();
         removeMedHistDialogue(pet);
+        in.nextLine();
         vaccDialogue(pet);
+        petOptions(pet);
     }
 
     private void newPetName(Pet pet){
@@ -210,6 +236,8 @@ public class UI {
         String name = in.nextLine();
         if(!name.isEmpty())
             pet.setName(name);
+        else
+            System.out.println("");
     }
 
     private void newPetAge(Pet pet){
@@ -217,6 +245,8 @@ public class UI {
         int age = in.nextInt();
         if(age != 0)
             pet.setAge(age);
+        else
+            System.out.println("");
     }
 
     private void addMedHistDialogue(Pet pet){
@@ -253,7 +283,7 @@ public class UI {
             switch(choice){
                 case "Y": case "y":
                     System.out.println(pet.stringMedHist());
-                    System.out.println("Please enter the number of the line:\n> ");
+                    System.out.print("Please enter the number of the line:\n> ");
                     int index = in.nextInt();
                     pet.removeMedHist(--index);
                     break;
@@ -272,6 +302,25 @@ public class UI {
 
     private void vaccDialogue(Pet pet){
 
+    }
+
+    private void registerOwner(Pet pet){
+        System.out.println("--------REGISTERING" + pet.getName().toUpperCase() +
+                "'S OWNER--------");
+        System.out.print("Name: ");
+        pet.getOwner().setName(in.nextLine());
+
+        System.out.print("Address: ");
+        pet.getOwner().setAddress(in.nextLine());
+
+        System.out.print("Phone Number: ");
+        pet.getOwner().setPhone(in.nextLine());
+
+        pet.getOwner().addPet(pet);
+        registry.addOwner(pet.getOwner());
+        registry.sort();
+
+        petOptions(pet);
     }
 
     private void deregisterPet(Pet pet){
