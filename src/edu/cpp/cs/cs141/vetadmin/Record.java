@@ -41,9 +41,9 @@ public class Record implements Comparable<Record> {
                 "\nOwner: " + pet.getOwner().getName() +
                 "\nAge:   " + pet.getAge() +
                 "\nBreed: " + breed +
-                "\nMedical History:\n" + pet.stringMedHist() +
-                "\nVaccinations:\n" + pet.stringVaccinations() +
-                "\nCurrent Appointments:\n" + pet.stringAppointments();
+                "\nMedical History\n" + pet.stringMedHist() +
+                "\nVaccinations\n" + pet.stringVaccinations() +
+                "\nCurrent Appointments\n" + pet.stringAppointments();
     }
 
     public void print() {

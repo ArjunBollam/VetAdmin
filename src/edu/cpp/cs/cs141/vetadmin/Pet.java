@@ -29,7 +29,7 @@ public abstract class Pet implements Comparable<Pet>{
     /**
      * The age of the pet as an {@code int}
      */
-    private int age;
+    private double age;
 
     /**
      * This {@code ArrayList} will contain the medical
@@ -58,7 +58,7 @@ public abstract class Pet implements Comparable<Pet>{
      * @param age The age to be set
      * @param type The {@link AnimalType} to be set
      */
-    public Pet(String name, int age, AnimalType type){
+    public Pet(String name, double age, AnimalType type){
         owner = new Owner();
         owner.setName("Not Registered");
         this.name = name;
@@ -75,7 +75,7 @@ public abstract class Pet implements Comparable<Pet>{
      * @param age The age to be set
      * @param type The {@link AnimalType} to be set
      */
-    public Pet(Owner owner, String name, int age, AnimalType type){
+    public Pet(Owner owner, String name, double age, AnimalType type){
         this.owner = owner;
         this.name = name;
         this.age = age;
@@ -121,14 +121,14 @@ public abstract class Pet implements Comparable<Pet>{
     /**
      * @return The {@link #age} of {@code this} {@link Pet}
      */
-    public int getAge(){
+    public double getAge(){
         return age;
     }
 
     /**
      * @param age The age to be set for {@code this} {@link Pet}
      */
-    public void setAge(int age){
+    public void setAge(double age){
         this.age = age;
     }
 
@@ -205,7 +205,7 @@ public abstract class Pet implements Comparable<Pet>{
      * @param date The date of the vaccination
      */
     public void addVaccination(String vaccine, String date){
-        vaccinations.add(vaccine + " " + date);
+        vaccinations.add(vaccine + " | " + date);
     }
 
     /**

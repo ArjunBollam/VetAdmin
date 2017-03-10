@@ -28,7 +28,7 @@ public class Cat extends Pet{
      * @param age The age to be set
      * @param breed The breed to be set
      */
-    public Cat(String name, int age, int breed){
+    public Cat(String name, double age, int breed){
         super(name, age, AnimalType.CAT);
 
         switch(breed){
