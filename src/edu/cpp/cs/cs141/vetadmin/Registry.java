@@ -112,18 +112,40 @@ public class Registry implements Serializable {
      */
     public String toString() {
         sort();
+        String str = "----------VIEWING ALL PETS & OWNERS----------";
+        for (Record pet : records) {
+            int index = records.indexOf(pet) + 1;
+            str += "\n-----PET " + index + "-----\n" + pet;
+        }
+
+        for (Owner owner : owners){
+            int index = owners.indexOf(owner) + 1;
+            str += "\n----OWNER " + index + "-----\n" + owner;
+        }
+
+        return str;
+    }
+
+    public void allPets() {
+        sort();
         String str = "----------VIEWING ALL PETS----------";
         for (Record pet : records) {
             int index = records.indexOf(pet) + 1;
             str += "\n-----" + index + "-----\n" + pet;
         }
 
-        return str;
+        UI.print(str);
     }
 
-    public void printRegistry() {
+    public void allOwners(){
         sort();
-        UI.print(this.toString());
+        String str = "----------VIEWING ALL OWNERS----------";
+        for (Owner owner : owners){
+            int index = owners.indexOf(owner) + 1;
+            str += "\n----OWNER " + index + "-----\n" + owner;
+        }
+
+        UI.print(str);
     }
 
     public String stringOwners() {

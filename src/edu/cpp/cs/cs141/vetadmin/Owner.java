@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * {@link #name}, {@link #address}, and {@link #phone} number of
  * the owner.
  */
-public class Owner implements Comparable<Owner>{
+public class Owner implements Comparable<Owner> {
 
     /**
      * The name of the owner as a {@code String}
@@ -34,8 +34,8 @@ public class Owner implements Comparable<Owner>{
      * This is the default constructor for the {@link Owner} class.
      * All of the class fields are initialized to empty {@code String}s.
      */
-    public Owner(){
-        name = "";
+    public Owner() {
+        name = "Not Registered";
         address = "";
         phone = "";
     }
@@ -44,11 +44,11 @@ public class Owner implements Comparable<Owner>{
      * This is a constructor for the {@link Owner} class. It
      * initializes all three of the class fields.
      *
-     * @param name The name to be set
+     * @param name    The name to be set
      * @param address The address to be set
-     * @param phone The phone number to be set
+     * @param phone   The phone number to be set
      */
-    public Owner(String name, String address, String phone){
+    public Owner(String name, String address, String phone) {
         this.name = name;
         this.address = address;
         this.phone = phone;
@@ -58,12 +58,12 @@ public class Owner implements Comparable<Owner>{
      * This is a constructor for the {@link Owner} class. It initializes
      * the three fields and {@code ArrayList} for this class.
      *
-     * @param name The name to be set
+     * @param name    The name to be set
      * @param address The address to be set
-     * @param phone The phone number to be set
-     * @param pet The {@link Pet} to be assigned to this user
+     * @param phone   The phone number to be set
+     * @param pet     The {@link Pet} to be assigned to this user
      */
-    public Owner(String name, String address, String phone, Pet pet){
+    public Owner(String name, String address, String phone, Pet pet) {
         this.name = name;
         this.address = address;
         this.phone = phone;
@@ -120,6 +120,10 @@ public class Owner implements Comparable<Owner>{
         return pets;
     }
 
+    public int getPetsSize(){
+        return pets.size();
+    }
+
     /**
      * @param pet The pet to be registered to {@code this} {@link Owner}
      */
@@ -127,16 +131,44 @@ public class Owner implements Comparable<Owner>{
         pets.add(pet);
     }
 
+    public String stringPets() {
+        String str = "---------PETS REGISTERED TO" + name.toUpperCase() + "---------";
+        str += petsToString();
+
+        return str;
+    }
+
+    public String petsToString(){
+        String str = "";
+        if (pets.isEmpty())
+            str = "No pets registered";
+        else
+            for (Pet pet : pets) {
+                int index = pets.indexOf(pet) + 1;
+                str += "\n" + index + ". " + pet.getName();
+            }
+
+        return str;
+    }
+
+
     /**
      * @param index The index of the {@link Pet} to be deregistered from
      *              {@code this} {@link Owner}
      */
-    public void removePet(int index){
+    public void removePet(int index) {
         pets.remove(index);
     }
 
+    public String toString(){
+        return "Name: " + name +
+                "\nAddress: " + address +
+                "\nPhone Number: " + phone +
+                "\nPets: " + petsToString();
+    }
+
     @Override
-    public int compareTo(Owner own){
+    public int compareTo(Owner own) {
         return this.name.compareToIgnoreCase(own.getName());
     }
 

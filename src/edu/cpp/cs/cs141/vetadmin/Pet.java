@@ -60,7 +60,6 @@ public abstract class Pet implements Comparable<Pet>{
      */
     public Pet(String name, double age, AnimalType type){
         owner = new Owner();
-        owner.setName("Not Registered");
         this.name = name;
         this.age = age;
         this.type = type;
