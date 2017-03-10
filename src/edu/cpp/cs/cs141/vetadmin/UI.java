@@ -68,27 +68,24 @@ public class UI {
                 "\n(1) Registry     - View or search for pets and owners" +
                 "\n(2) Appointments - View, edit, and create appointments" +
                 "\n(3) Save/Load    - Save and load registries" +
-                "\n(0)  Quit" +
+                "\n(0) Quit" +
                 "\n> ");
 
         try {
             int choice = in.nextInt();
+            in.nextLine();
 
             switch (choice) {
                 case 1:
-                    in.nextLine();
                     registryDialogue();
                     break;
                 case 2:
-                    in.nextLine();
                     appointmentsDialogue();
                     break;
                 case 3:
-                    in.nextLine();
                     saveLoadDialogue();
                     break;
                 case 0:
-                    in.nextLine();
                     exit(false);
                 default:
                     System.out.println("Invalid entry! Please try again.\n");
@@ -110,8 +107,8 @@ public class UI {
                 "\n(4) New Pet   - Register a new pet" +
                 "\n(5) New Owner - Register a new owner" +
                 "\n(/) Search    - Search the registry for pets and owners" +
-                "\n(7)  Back to Main Menu" +
-                "\n(0)  Quit" +
+                "\n(7) Back to Main Menu" +
+                "\n(0) Quit" +
                 "\n> ");
 
         try {
@@ -134,6 +131,7 @@ public class UI {
                 case 4:
                     in.nextLine();
                     registerPet();
+                    System.out.println(registry.stringPets());
                     registryDialogue();
                     break;
                 case 5:
@@ -175,7 +173,7 @@ public class UI {
                 "\n(1) Select       - Display record and options for a specific pet" +
                 "\n(2) View Records - Display the records for all pets" +
                 "\n(3) Back" +
-                "\n(0)  Quit" +
+                "\n(0) Quit" +
                 "\n> ");
 
         try {
@@ -221,7 +219,7 @@ public class UI {
                     "\n(/) Deregister      - Remove " + pet.getName() + " from the registry" +
                     "\n(4) Back" +
                     "\n(5) Register Owner  - Add " + pet.getName() + "'s owner to the registry" +
-                    "\n(0)  Quit" +
+                    "\n(0) Quit" +
                     "\n> ");
         } else {
             System.out.print("Please make a selection:" +
@@ -229,7 +227,7 @@ public class UI {
                     "\n(2) New Appointment - Book a new appointment for " + pet.getName() +
                     "\n(/) Deregister      - Remove " + pet.getName() + " from the registry" +
                     "\n(4) Back" +
-                    "\n(0)  Quit" +
+                    "\n(0) Quit" +
                     "\n> ");
         }
 
@@ -683,9 +681,6 @@ public class UI {
                     in.nextLine();
                     newFish();
                     break;
-                case 0:
-                    in.nextLine();
-                    exit(false);
                 default:
                     System.out.println("Invalid entry! Please try again.\n");
                     registerPet();
@@ -883,7 +878,7 @@ public class UI {
                 "\n(1) Select   - Display info and options for a specific owner" +
                 "\n(2) View All - Display the info for all owners" +
                 "\n(3) Back" +
-                "\n(0)  Quit" +
+                "\n(0) Quit" +
                 "\n> ");
 
         try {
@@ -928,14 +923,14 @@ public class UI {
                     "\n(/) Deregister      - Remove " + owner.getName() + " from the registry" +
                     "\n(3) Back" +
                     "\n(4) Register Pet    - Add " + owner.getName() + "'s pet to the registry" +
-                    "\n(0)  Quit" +
+                    "\n(0) Quit" +
                     "\n> ");
         } else {
             System.out.print("Please make a selection:" +
                     "\n(1) Edit Info       - Edit " + owner.getName() + "'s name, address, and more" +
                     "\n(/) Deregister      - Remove " + owner.getName() + " from the registry" +
                     "\n(3) Back" +
-                    "\n(0)  Quit" +
+                    "\n(0) Quit" +
                     "\n> ");
         }
 
@@ -1213,7 +1208,7 @@ public class UI {
                 "\n(3) New       - Create a new appointment" +
                 "\n(4) Resolve   - Mark an appointment as resolved and remove from list" +
                 "\n(5) Back to Main Menu" +
-                "\n(0)  Quit" +
+                "\n(0) Quit" +
                 "\n> ");
 
         try {
@@ -1296,7 +1291,7 @@ public class UI {
                 "\n(1) Save   - Save the current registry" +
                 "\n(2) Load   - Load a previously saved registry" +
                 "\n(3) Back to Main Menu" +
-                "\n(0)  Quit" +
+                "\n(0) Quit" +
                 "\n> ");
 
         try {
@@ -1330,6 +1325,11 @@ public class UI {
 
     private void save(){
         System.out.println("--------NOW SAVING--------");
+        if(saves.isEmpty())
+            System.out.println("----------NO CURRENT SAVES FOUND----------");
+        else
+            displaySaves();
+
         System.out.print("Please enter the name you would like to save" +
                 " this registry as:\n> ");
         String name = in.nextLine();
@@ -1402,7 +1402,7 @@ public class UI {
     }
 
     private void displaySaves(){
-        String str = "---------PREVIOUS SAVES---------";
+        String str = "---------CURRENT SAVES---------";
         for (String save : saves) {
             int index = saves.indexOf(save) + 1;
             str += "\n" + index + ". " + save;
@@ -1419,6 +1419,7 @@ public class UI {
     }
 
     private void exit(boolean checked) {
+        in.nextLine();
         if(!checked)
             System.out.println("Would you like to save before exiting (Y/N)?");
         

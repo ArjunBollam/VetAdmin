@@ -129,11 +129,16 @@ public class Registry implements Serializable {
     public String toString() {
         sort();
         String str = "----------VIEWING ALL PETS & OWNERS----------";
+
+        if(records.isEmpty())
+            str += "\nNo pets registered.";
         for (Record pet : records) {
             int index = records.indexOf(pet) + 1;
             str += "\n-----PET " + index + "-----\n" + pet;
         }
 
+        if(owners.isEmpty())
+            str += "\nNo owners registered.";
         for (Owner owner : owners) {
             int index = owners.indexOf(owner) + 1;
             str += "\n----OWNER " + index + "-----\n" + owner;
