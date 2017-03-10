@@ -191,11 +191,12 @@ public class Registry implements Serializable {
     public String stringAppointments() {
         sort();
         String str = "---------SCHEDULED APPOINTMENTS---------";
+        if(appointments.isEmpty())
+            return str + "\nNo appointments scheduled.";
         for (Appointment app : appointments) {
             int index = appointments.indexOf(app) + 1;
-            str += "\n" + index + ". " + app;
+            str += "\n--" + index + "--\n" + app;
         }
-        str += "\n------------------";
 
         return str;
     }
@@ -298,6 +299,5 @@ public class Registry implements Serializable {
         Collections.sort(records);
         Collections.sort(pets);
         Collections.sort(owners);
-        Collections.sort(appointments);
     }
 }

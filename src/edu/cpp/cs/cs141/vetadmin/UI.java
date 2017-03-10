@@ -322,7 +322,7 @@ public class UI {
                 case "Y":
                 case "y":
                     System.out.print(pet.getName() + "'s new age: ");
-                    int age = in.nextInt();
+                    double age = in.nextDouble();
                     pet.setAge(age);
                     in.nextLine();
                     break;
@@ -616,8 +616,10 @@ public class UI {
                     System.out.println(pet.stringAppointments());
                     System.out.print("Please enter the number of the line:\n> ");
                     int index = in.nextInt();
-                    registry.resolveApp(pet.getAppointments().get(--index));
-                    pet.resolveApp(pet.getAppointments().get(--index));
+                    in.nextLine();
+                    Appointment app = registry.getAppointments().get(--index);
+                    registry.resolveApp(app);
+                    app.getClient().resolveApp(app);
                     System.out.println("Mark another (Y/N)?");
                     try {
                         choice = in.nextLine();
@@ -1210,7 +1212,8 @@ public class UI {
                 "\n(1) View      - View all scheduled appointments" +
                 "\n(/) Search    - Search from scheduled appointments" +
                 "\n(3) New       - Create a new appointment" +
-                "\n(4) Back to Main Menu" +
+                "\n(4) Resolve   - Mark an appointment as resolved and remove from list" +
+                "\n(5) Back to Main Menu" +
                 "\n(0)  Quit" +
                 "\n> ");
 
@@ -1230,9 +1233,20 @@ public class UI {
                 case 3:
                     in.nextLine();
                     newAppointment();
+                    System.out.println(registry.stringAppointments());
                     appointmentsDialogue();
                     break;
                 case 4:
+                    in.nextLine();
+                    System.out.println(registry.stringAppointments());
+                    System.out.print("Please enter the number of the line:\n> ");
+                    int index = in.nextInt();
+                    Appointment app = registry.getAppointments().get(--index);
+                    registry.resolveApp(app);
+                    app.getClient().resolveApp(app);
+                    System.out.println(registry.stringAppointments());
+                    appointmentsDialogue();
+                case 5:
                     mainMenu();
                     break;
                 case 0:
@@ -1262,6 +1276,7 @@ public class UI {
         try {
             System.out.print("Please enter the number of the pet:\n> ");
             int pet = in.nextInt();
+            in.nextLine();
             System.out.print("Please enter the date of the appointment: ");
             String date = in.nextLine();
             System.out.print("Please enter the time of the appointment: ");

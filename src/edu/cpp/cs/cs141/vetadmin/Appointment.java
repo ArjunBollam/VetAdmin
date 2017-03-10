@@ -108,9 +108,9 @@ public class Appointment implements Comparable<Appointment> {
             stat = "Resolved";
 
         return "Name: " + client.getName() +
-                "\nDate: " + date +
-                "\nTime: " + time +
-                "\nStatus: " + stat;
+                "\n   Date: " + date +
+                "\n   Time: " + time +
+                "\n   Status: " + stat;
     }
 
     public void print() {
@@ -119,6 +119,7 @@ public class Appointment implements Comparable<Appointment> {
 
     @Override
     public int compareTo(Appointment app) {
-        return this.date.compareToIgnoreCase(app.getDate());
+        return this.client.getOwner().getName().compareToIgnoreCase(
+                app.getClient().getOwner().getName());
     }
 }

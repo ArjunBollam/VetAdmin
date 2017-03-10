@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * {@link #age}, medical history ({@link #medHist}),
  * {@link #vaccinations}, and {@link #appointments}.
  */
-public abstract class Pet implements Comparable<Pet>{
+public abstract class Pet implements Comparable<Pet> {
 
     /**
      * The {@link Owner} that the {@code this} {@link Pet}
@@ -55,10 +55,10 @@ public abstract class Pet implements Comparable<Pet>{
      * for the pet.
      *
      * @param name The name to be set
-     * @param age The age to be set
+     * @param age  The age to be set
      * @param type The {@link AnimalType} to be set
      */
-    public Pet(String name, double age, AnimalType type){
+    public Pet(String name, double age, AnimalType type) {
         owner = new Owner();
         this.name = name;
         this.age = age;
@@ -70,11 +70,11 @@ public abstract class Pet implements Comparable<Pet>{
      * the class fields and assigns the {@link Owner} for the pet.
      *
      * @param owner The pet's {@link Owner}
-     * @param name The name to be set
-     * @param age The age to be set
-     * @param type The {@link AnimalType} to be set
+     * @param name  The name to be set
+     * @param age   The age to be set
+     * @param type  The {@link AnimalType} to be set
      */
-    public Pet(Owner owner, String name, double age, AnimalType type){
+    public Pet(Owner owner, String name, double age, AnimalType type) {
         this.owner = owner;
         this.name = name;
         this.age = age;
@@ -84,15 +84,15 @@ public abstract class Pet implements Comparable<Pet>{
     /**
      * @return The {@link #owner} of {@code this} {@link Pet}
      */
-    public Owner getOwner(){
+    public Owner getOwner() {
         return owner;
     }
 
     /**
      * @param owner The {@link Owner} to be set for {@code this}
-     * {@link Pet}
+     *              {@link Pet}
      */
-    public void setOwner(Owner owner){
+    public void setOwner(Owner owner) {
         this.owner = owner;
     }
 
@@ -113,28 +113,28 @@ public abstract class Pet implements Comparable<Pet>{
     /**
      * @return The {@link #type} of animal {@code this} {@link Pet} is
      */
-    public AnimalType getType(){
+    public AnimalType getType() {
         return type;
     }
 
     /**
      * @return The {@link #age} of {@code this} {@link Pet}
      */
-    public double getAge(){
+    public double getAge() {
         return age;
     }
 
     /**
      * @param age The age to be set for {@code this} {@link Pet}
      */
-    public void setAge(double age){
+    public void setAge(double age) {
         this.age = age;
     }
 
     /**
      * @return The {@link #medHist} of {@code this} {@link Pet}
      */
-    public ArrayList<String> getMedHist(){
+    public ArrayList<String> getMedHist() {
         return medHist;
     }
 
@@ -142,14 +142,14 @@ public abstract class Pet implements Comparable<Pet>{
      * @return The {@code String} representation of {@code this}
      * {@link Pet}'s {@link #medHist}.
      */
-    public String stringMedHist(){
+    public String stringMedHist() {
         String str = "";
-        if(medHist.isEmpty()){
-            return "No medical history.";
+        if (medHist.isEmpty()) {
+            return "   No medical history.";
         }
-        for(String line : medHist){
+        for (String line : medHist) {
             int index = medHist.indexOf(line) + 1;
-            str += index + ". " + line + "\n";
+            str += index + ". " + line + "\n   ";
         }
         return str;
     }
@@ -159,9 +159,9 @@ public abstract class Pet implements Comparable<Pet>{
      * {@link #medHist}
      *
      * @param disease The disease to be added
-     * @param status The status of the disease
+     * @param status  The status of the disease
      */
-    public void addMedHist(String disease, String status){
+    public void addMedHist(String disease, String status) {
         medHist.add(disease + " | " + status);
     }
 
@@ -169,14 +169,14 @@ public abstract class Pet implements Comparable<Pet>{
      * @param index The index of the line of medical history to be
      *              removed
      */
-    public void removeMedHist(int index){
+    public void removeMedHist(int index) {
         medHist.remove(index);
     }
 
     /**
      * @return The vaccinations {@code this} {@link Pet} has had
      */
-    public ArrayList<String> getVaccinations(){
+    public ArrayList<String> getVaccinations() {
         return vaccinations;
     }
 
@@ -184,14 +184,14 @@ public abstract class Pet implements Comparable<Pet>{
      * @return The {@code String} representation of {@code this}
      * {@link Pet}'s {@link #vaccinations}
      */
-    public String stringVaccinations(){
+    public String stringVaccinations() {
         String str = "";
-        if(vaccinations.isEmpty()){
-            return "No vaccinations.";
+        if (vaccinations.isEmpty()) {
+            return "   No vaccinations.";
         }
-        for(String line : vaccinations){
+        for (String line : vaccinations) {
             int index = vaccinations.indexOf(line) + 1;
-            str += index + ". " + line + "\n";
+            str += index + ". " + line + "\n   ";
         }
         return str;
     }
@@ -201,16 +201,16 @@ public abstract class Pet implements Comparable<Pet>{
      * {@link #vaccinations}
      *
      * @param vaccine The vaccine to be added
-     * @param date The date of the vaccination
+     * @param date    The date of the vaccination
      */
-    public void addVaccination(String vaccine, String date){
+    public void addVaccination(String vaccine, String date) {
         vaccinations.add(vaccine + " | " + date);
     }
 
     /**
      * @param index The index of the vaccination to be removed
      */
-    public void removeVaccination(int index){
+    public void removeVaccination(int index) {
         vaccinations.remove(index);
     }
 
@@ -218,11 +218,11 @@ public abstract class Pet implements Comparable<Pet>{
      * @return The {@link Appointment}s booked for {@code this}
      * {@link Pet}.
      */
-    public ArrayList<Appointment> getAppointments(){
+    public ArrayList<Appointment> getAppointments() {
         return appointments;
     }
 
-    public void resolveApp(Appointment app){
+    public void resolveApp(Appointment app) {
         app.setStatus(1);
         appointments.remove(app);
     }
@@ -231,18 +231,19 @@ public abstract class Pet implements Comparable<Pet>{
      * @return The {@code String} representation of {@code this} {@link Pet}'s
      * {@link #appointments}
      */
-    public String stringAppointments(){
-            if(appointments.isEmpty()){
-                return "No current appointments.";
-            }
-            for(Appointment line : appointments){
-                int place = appointments.indexOf(line) + 1;
-                return place + ". " + line.toString();
-            }
-            return "";
+    public String stringAppointments() {
+        String str = "";
+        if (appointments.isEmpty()) {
+            return "   No current appointments.";
+        }
+        for (Appointment line : appointments) {
+            int place = appointments.indexOf(line) + 1;
+            str += place + ". " + line + "\n   ";
+        }
+        return str;
     }
 
-    public void printAppointments(){
+    public void printAppointments() {
         UI.print(this.stringAppointments());
     }
 
@@ -252,19 +253,19 @@ public abstract class Pet implements Comparable<Pet>{
      *
      * @param app The appointment to be added
      */
-    public void addAppointment(Appointment app){
+    public void addAppointment(Appointment app) {
         appointments.add(app);
     }
 
     /**
      * @param index The index of the appointment to be removed
      */
-    public void removeAppointment(int index){
+    public void removeAppointment(int index) {
         appointments.remove(index);
     }
 
     @Override
-    public int compareTo(Pet pet){
+    public int compareTo(Pet pet) {
         return this.name.compareToIgnoreCase(pet.getName());
     }
 
