@@ -1123,7 +1123,7 @@ public class UI {
     private void removePet(Owner owner, boolean checked) {
         String choice;
         if (!checked) {
-            System.out.println("Would you like to unlink a pet from" + owner.getName() + " (Y/N)?");
+            System.out.println("Would you like to unlink a pet from " + owner.getName() + " (Y/N)?");
             choice = in.nextLine();
         } else
             choice = "y";

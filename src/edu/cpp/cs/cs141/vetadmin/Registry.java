@@ -176,7 +176,6 @@ public class Registry implements Serializable {
             int index = owners.indexOf(owner) + 1;
             str += "\n" + index + ". " + owner.getName();
         }
-        str += "\n------------------";
 
         return str;
     }
@@ -188,7 +187,6 @@ public class Registry implements Serializable {
             int index = pets.indexOf(pet) + 1;
             str += "\n" + index + ". " + pet.getName();
         }
-        str += "\n------------------";
 
         return str;
     }
