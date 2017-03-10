@@ -37,9 +37,9 @@ public class Record implements Comparable<Record> {
                 breed = ((Fish) pet).getBreed().toString();
         }
 
-        return  "Name: " + pet.getName() +
+        return  "Name:  " + pet.getName() +
                 "\nOwner: " + pet.getOwner().getName() +
-                "\nAge: " + pet.getAge() +
+                "\nAge:   " + pet.getAge() +
                 "\nBreed: " + breed +
                 "\nMedical History:\n" + pet.stringMedHist() +
                 "\nVaccinations:\n" + pet.stringVaccinations() +
