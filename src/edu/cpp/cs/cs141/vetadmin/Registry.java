@@ -28,6 +28,8 @@ public class Registry implements Serializable {
      */
     private ArrayList<Record> records;
 
+    private ArrayList<Appointment> appointments;
+
     /**
      * This is the constructor for the {@link Registry} class. It
      * initializes the {@code ArrayList}s
@@ -36,6 +38,7 @@ public class Registry implements Serializable {
         pets = new ArrayList<>();
         owners = new ArrayList<>();
         records = new ArrayList<>();
+        appointments = new ArrayList<>();
     }
 
     /**
@@ -61,6 +64,19 @@ public class Registry implements Serializable {
 
     public Record getRecord(int index) {
         return records.get(index);
+    }
+
+    public ArrayList<Appointment> getAppointments() {
+        return appointments;
+    }
+
+    public int getAppSize() {
+        return appointments.size();
+    }
+
+    public void resolveApp(Appointment app) {
+        app.setStatus(1);
+        appointments.remove(app);
     }
 
     /**
@@ -118,7 +134,7 @@ public class Registry implements Serializable {
             str += "\n-----PET " + index + "-----\n" + pet;
         }
 
-        for (Owner owner : owners){
+        for (Owner owner : owners) {
             int index = owners.indexOf(owner) + 1;
             str += "\n----OWNER " + index + "-----\n" + owner;
         }
@@ -137,10 +153,10 @@ public class Registry implements Serializable {
         UI.print(str);
     }
 
-    public void allOwners(){
+    public void allOwners() {
         sort();
         String str = "----------VIEWING ALL OWNERS----------";
-        for (Owner owner : owners){
+        for (Owner owner : owners) {
             int index = owners.indexOf(owner) + 1;
             str += "\n----OWNER " + index + "-----\n" + owner;
         }
@@ -166,6 +182,18 @@ public class Registry implements Serializable {
         for (Pet pet : pets) {
             int index = pets.indexOf(pet) + 1;
             str += "\n" + index + ". " + pet.getName();
+        }
+        str += "\n------------------";
+
+        return str;
+    }
+
+    public String stringAppointments() {
+        sort();
+        String str = "---------SCHEDULED APPOINTMENTS---------";
+        for (Appointment app : appointments) {
+            int index = appointments.indexOf(app) + 1;
+            str += "\n" + index + ". " + app;
         }
         str += "\n------------------";
 
@@ -210,6 +238,10 @@ public class Registry implements Serializable {
         pets.add(new Fish(name, age, breed));
         createRecord(pets.get(pets.size() - 1));
         sort();
+    }
+
+    public void newAppointment(Appointment app) {
+        appointments.add(app);
     }
 
     /**
@@ -266,5 +298,6 @@ public class Registry implements Serializable {
         Collections.sort(records);
         Collections.sort(pets);
         Collections.sort(owners);
+        Collections.sort(appointments);
     }
 }

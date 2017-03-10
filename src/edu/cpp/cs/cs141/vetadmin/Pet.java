@@ -222,6 +222,11 @@ public abstract class Pet implements Comparable<Pet>{
         return appointments;
     }
 
+    public void resolveApp(Appointment app){
+        app.setStatus(1);
+        appointments.remove(app);
+    }
+
     /**
      * @return The {@code String} representation of {@code this} {@link Pet}'s
      * {@link #appointments}

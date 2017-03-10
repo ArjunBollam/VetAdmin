@@ -5,7 +5,7 @@ package edu.cpp.cs.cs141.vetadmin;
  * {@link #date} and {@link #time} of the appointment, the {@link Pet} object
  * {@link #client}, and the {@link #status} of the appointment.
  */
-public class Appointment {
+public class Appointment implements Comparable<Appointment> {
 
     /**
      * The date of the appointment as a {@code String}
@@ -25,21 +25,20 @@ public class Appointment {
     /**
      * The status of the appointment as a {@link String}
      */
-    private String status;
+    private int status;
 
     /**
      * This is the constructor for the {@link Appointment} class.
      *
      * @param client The {@link Pet} to be set
-     * @param date The date to be set
-     * @param time The time to be set
-     * @param status The status of to be set
+     * @param date   The date to be set
+     * @param time   The time to be set
      */
-    public Appointment(Pet client, String date, String time, String status){
+    public Appointment(Pet client, String date, String time) {
         this.client = client;
         this.date = date;
         this.time = time;
-        this.status = status;
+        status = 0;
     }
 
     /**
@@ -87,28 +86,39 @@ public class Appointment {
     /**
      * @return The {@link #status} of {@code this} {@link Appointment}
      */
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 
     /**
      * @param status The status to be set for {@code this} {@link Appointment}
      */
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
     /**
      * @return The {@code String} representation of {@code this} {@link Appointment}
      */
-    public String toString(){
+    public String toString() {
+        String stat;
+        if (status == 0)
+            stat = "Outstanding";
+        else
+            stat = "Resolved";
+
         return "Name: " + client.getName() +
                 "\nDate: " + date +
                 "\nTime: " + time +
-                "\nStatus: " + status;
+                "\nStatus: " + stat;
     }
 
-    public void print(){
+    public void print() {
         UI.print(this.toString());
+    }
+
+    @Override
+    public int compareTo(Appointment app) {
+        return this.date.compareToIgnoreCase(app.getDate());
     }
 }

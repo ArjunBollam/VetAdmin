@@ -44,9 +44,11 @@ public class UI {
         }
 
         if (debug) {
+            registry.addOwner(new Owner("Tara", "6315 Ridgeglade Ct", "911"));
             registry.newCat("Harold", 3, 2);
             registry.newDog("Lollipop", 2, 4);
             registry.newFish("Kai", 3, 1);
+            registry.getOwners().get(0).addPet(registry.getPets().get(1));
         }
 
         mainMenu();
@@ -58,10 +60,10 @@ public class UI {
     private void mainMenu() {
         System.out.print("---------MAIN MENU---------" +
                 "\nPlease make a selection: " +
-                "\n1. Registry     - View or search for pets and owners" +
-                "\n// Appointments - View, edit, and create appointments" +
+                "\n(1) Registry     - View or search for pets and owners" +
+                "\n(2) Appointments - View, edit, and create appointments" +
                 "\n// Save/Load    - Save and load registries" +
-                "\n0. Quit" +
+                "\n(0)  Quit" +
                 "\n> ");
 
         try {
@@ -97,14 +99,14 @@ public class UI {
     private void registryDialogue() {
         System.out.println("--------NOW VIEWING REGISTRY MENU--------");
         System.out.print("Please make a selection:" +
-                "\n1. Pets      - View all pets" +
-                "\n2. Owners    - View all owners" +
-                "\n3. View All  - View all registered pets and owners" +
-                "\n4. New Pet   - Register a new pet" +
-                "\n5. New Owner - Register a new owner" +
+                "\n(1) Pets      - View all pets" +
+                "\n(2) Owners    - View all owners" +
+                "\n(3) View All  - View all registered pets and owners" +
+                "\n(4) New Pet   - Register a new pet" +
+                "\n(5) New Owner - Register a new owner" +
                 "\n// Search    - Search the registry for pets and owners" +
-                "\n7. Back to Main Menu" +
-                "\n0. Quit" +
+                "\n(7)  Back to Main Menu" +
+                "\n(0)  Quit" +
                 "\n> ");
 
         try {
@@ -122,6 +124,8 @@ public class UI {
                 case 3:
                     in.nextLine();
                     System.out.println(registry);
+                    registryDialogue();
+                    break;
                 case 4:
                     in.nextLine();
                     registerPet();
@@ -163,10 +167,10 @@ public class UI {
         }
 
         System.out.print("Please make a selection:" +
-                "\n1. Select       - Display record and options for a specific pet" +
-                "\n2. View Records - Display the records for all pets" +
-                "\n3. Back" +
-                "\n0. Quit" +
+                "\n(1) Select       - Display record and options for a specific pet" +
+                "\n(2) View Records - Display the records for all pets" +
+                "\n(3) Back" +
+                "\n(0)  Quit" +
                 "\n> ");
 
         try {
@@ -207,20 +211,20 @@ public class UI {
         System.out.println("---------------------------------------");
         if (pet.getOwner().getName().equals("Not Registered")) {
             System.out.print("Please make a selection:" +
-                    "\n1. Edit Info       - Edit " + pet.getName() + "'s name, age, and more" +
-                    "\n// New Appointment - Book a new appointment for " + pet.getName() +
-                    "\n// Deregister      - Remove " + pet.getName() + " from the registry" +
-                    "\n4. Back" +
-                    "\n5. Register Owner  - Add " + pet.getName() + "'s owner to the registry" +
-                    "\n0. Quit" +
+                    "\n(1) Edit Info       - Edit " + pet.getName() + "'s age, appointments, and more" +
+                    "\n(2) New Appointment - Book a new appointment for " + pet.getName() +
+                    "\n(/) Deregister      - Remove " + pet.getName() + " from the registry" +
+                    "\n(4) Back" +
+                    "\n(5) Register Owner  - Add " + pet.getName() + "'s owner to the registry" +
+                    "\n(0)  Quit" +
                     "\n> ");
         } else {
             System.out.print("Please make a selection:" +
-                    "\n1. Edit Info       - Edit " + pet.getName() + "'s name, age, and more" +
-                    "\n// New Appointment - Book a new appointment for " + pet.getName() +
-                    "\n// Deregister      - Remove " + pet.getName() + " from the registry" +
-                    "\n4. Back" +
-                    "\n0. Quit" +
+                    "\n(1) Edit Info       - Edit " + pet.getName() + "'s age, appointments, and more" +
+                    "\n(2) New Appointment - Book a new appointment for " + pet.getName() +
+                    "\n(/) Deregister      - Remove " + pet.getName() + " from the registry" +
+                    "\n(4) Back" +
+                    "\n(0)  Quit" +
                     "\n> ");
         }
 
@@ -234,11 +238,13 @@ public class UI {
                     break;
                 case 2:
                     in.nextLine();
-                    appointmentsDialogue();
+                    addAppDialogue(pet, false);
+                    petOptions(pet);
                     break;
                 case 3:
                     in.nextLine();
                     deregisterPet(pet);
+                    viewPets();
                     break;
                 case 4:
                     in.nextLine();
@@ -273,6 +279,9 @@ public class UI {
         addVaccDialogue(pet, false);
         if (!pet.getVaccinations().isEmpty())
             removeVaccDialogue(pet, false);
+        addAppDialogue(pet, false);
+        if (!pet.getAppointments().isEmpty())
+            resolveAppDialogue(pet, false);
         petOptions(pet);
     }
 
@@ -288,7 +297,6 @@ public class UI {
                     System.out.print(pet.getName() + "'s new name: ");
                     String name = in.nextLine();
                     pet.setName(name);
-                    in.nextLine();
                     break;
                 case "N":
                 case "n":
@@ -538,12 +546,118 @@ public class UI {
         }
     }
 
+    private void addAppDialogue(Pet pet, boolean checked){
+        String choice;
+        if (!checked) {
+            System.out.println("Would you like to schedule an appointment" +
+                    " for " + pet.getName() + " (Y/N)?");
+            choice = in.nextLine();
+        } else
+            choice = "y";
+
+        try {
+            switch (choice) {
+                case "Y":
+                case "y":
+                    System.out.print("Date: ");
+                    String date = in.nextLine();
+                    System.out.print("Time: ");
+                    String time = in.nextLine();
+                    registry.newAppointment(new Appointment(pet, date, time));
+                    Appointment app = registry.getAppointments().get(registry.getAppSize() - 1);
+                    pet.addAppointment(app);
+                    System.out.println("Add another (Y/N)?");
+                    try {
+                        choice = in.nextLine();
+                        switch (choice) {
+                            case "Y":
+                            case "y":
+                                addAppDialogue(pet, true);
+                            case "N":
+                            case "n":
+                                break;
+                            default:
+                                System.out.println("Invalid entry! Please try again.\n");
+                                addAppDialogue(pet, true);
+                        }
+                    } catch (InputMismatchException e) {
+                        System.out.println("Invalid entry! Please try again.\n");
+                        in.nextLine();
+                        addAppDialogue(pet, true);
+                    }
+                    break;
+                case "N":
+                case "n":
+                    break;
+                default:
+                    System.out.println("Invalid entry! Please try again.\n");
+                    addAppDialogue(pet, true);
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid entry! Please try again.\n");
+            in.nextLine();
+            addAppDialogue(pet, true);
+        }
+    }
+
+    private void resolveAppDialogue(Pet pet, boolean checked){
+        String choice;
+        if (!checked) {
+            System.out.println("Would you like to mark one of " + pet.getName() + "'s appointments " +
+                    "as resolved? (Y/N)?");
+            choice = in.nextLine();
+        } else
+            choice = "y";
+
+        try {
+            switch (choice) {
+                case "Y":
+                case "y":
+                    System.out.println(pet.stringAppointments());
+                    System.out.print("Please enter the number of the line:\n> ");
+                    int index = in.nextInt();
+                    registry.resolveApp(pet.getAppointments().get(--index));
+                    pet.resolveApp(pet.getAppointments().get(--index));
+                    System.out.println("Mark another (Y/N)?");
+                    try {
+                        choice = in.nextLine();
+                        switch (choice) {
+                            case "Y":
+                            case "y":
+                                resolveAppDialogue(pet, true);
+                            case "N":
+                            case "n":
+                                break;
+                            default:
+                                System.out.println("Invalid entry! Please try again.\n");
+                                resolveAppDialogue(pet, true);
+                        }
+                    } catch (InputMismatchException e) {
+                        System.out.println("Invalid entry! Please try again.\n");
+                        in.nextLine();
+                        resolveAppDialogue(pet, true);
+                    }
+                    break;
+                case "N":
+                case "n":
+                    break;
+                default:
+                    System.out.println("Invalid entry! Please try again.\n");
+                    resolveAppDialogue(pet, true);
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid entry! Please try again.\n");
+            in.nextLine();
+            resolveAppDialogue(pet, true);
+        }
+    }
+
     private void registerPet() {
         System.out.println("--------REGISTERING NEW PET--------");
         System.out.print("What kind of animal is this pet?" +
-                "\n1. Cat" +
-                "\n2. Dog" +
-                "\n3. Fish" +
+                "\n(1) Cat" +
+                "\n(2) Dog" +
+                "\n(3) Fish" +
                 "\n> ");
 
         try {
@@ -584,11 +698,11 @@ public class UI {
         double age = in.nextDouble();
 
         System.out.print("Choose a breed: " +
-                "\n1. SIAMESE" +
-                "\n2. PERSIAN" +
-                "\n3. BURMESE" +
-                "\n4. BOBTAIL" +
-                "\n5. SIBERIAN" +
+                "\n(1) SIAMESE" +
+                "\n(2) PERSIAN" +
+                "\n(3) BURMESE" +
+                "\n(4) BOBTAIL" +
+                "\n(5) SIBERIAN" +
                 "\n> ");
         try {
             int choice = in.nextInt();
@@ -633,11 +747,11 @@ public class UI {
         double age = in.nextDouble();
 
         System.out.print("Choose a breed: " +
-                "\n1. HUSKY" +
-                "\n2. PUG" +
-                "\n3. LAB" +
-                "\n4. YORKIE" +
-                "\n5. PEKINGESE" +
+                "\n(1) HUSKY" +
+                "\n(2) PUG" +
+                "\n(3) LAB" +
+                "\n(4) YORKIE" +
+                "\n(5) PEKINGESE" +
                 "\n> ");
         try {
             int choice = in.nextInt();
@@ -682,11 +796,11 @@ public class UI {
         double age = in.nextDouble();
 
         System.out.print("Choose a breed: " +
-                "\n1. GOLDFISH" +
-                "\n2. BETTA" +
-                "\n3. ANGELFISH" +
-                "\n4. CLOWNFISH" +
-                "\n5. GUPPY" +
+                "\n(1) GOLDFISH" +
+                "\n(2) BETTA" +
+                "\n(3) ANGELFISH" +
+                "\n(4) CLOWNFISH" +
+                "\n(5) GUPPY" +
                 "\n> ");
         try {
             int choice = in.nextInt();
@@ -759,10 +873,10 @@ public class UI {
         }
 
         System.out.print("Please make a selection:" +
-                "\n1. Select   - Display info and options for a specific owner" +
-                "\n2. View All - Display the info for all owners" +
-                "\n3. Back" +
-                "\n0. Quit" +
+                "\n(1) Select   - Display info and options for a specific owner" +
+                "\n(2) View All - Display the info for all owners" +
+                "\n(3) Back" +
+                "\n(0)  Quit" +
                 "\n> ");
 
         try {
@@ -803,20 +917,20 @@ public class UI {
         System.out.println("---------------------------------------");
         if (owner.getPets().isEmpty()) {
             System.out.print("Please make a selection:" +
-                    "\n1. Edit Info       - Edit " + owner.getName() + "'s name, address, and more" +
+                    "\n(1) Edit Info       - Edit " + owner.getName() + "'s name, address, and more" +
                     "\n// New Appointment - Book a new appointment for " + owner.getName() +
                     "\n// Deregister      - Remove " + owner.getName() + " from the registry" +
-                    "\n4. Back" +
-                    "\n5. Register Pet    - Add " + owner.getName() + "'s pet to the registry" +
-                    "\n0. Quit" +
+                    "\n(4) Back" +
+                    "\n(5) Register Pet    - Add " + owner.getName() + "'s pet to the registry" +
+                    "\n(0)  Quit" +
                     "\n> ");
         } else {
             System.out.print("Please make a selection:" +
-                    "\n1. Edit Info       - Edit " + owner.getName() + "'s name, address, and more" +
+                    "\n(1) Edit Info       - Edit " + owner.getName() + "'s name, address, and more" +
                     "\n// New Appointment - Book a new appointment for " + owner.getName() +
                     "\n// Deregister      - Remove " + owner.getName() + " from the registry" +
-                    "\n4. Back" +
-                    "\n0. Quit" +
+                    "\n(4) Back" +
+                    "\n(0)  Quit" +
                     "\n> ");
         }
 
@@ -866,9 +980,9 @@ public class UI {
         newOwnerName(owner);
         newOwnerAddress(owner);
         newOwnerPhone(owner);
-        addPet(owner, false);
         if (!owner.getPets().isEmpty())
             removePet(owner, false);
+        addPet(owner, false);
         ownerOptions(owner);
     }
 
@@ -884,7 +998,6 @@ public class UI {
                     System.out.print(owner.getName() + "'s new name: ");
                     String name = in.nextLine();
                     owner.setName(name);
-                    in.nextLine();
                     break;
                 case "N":
                 case "n":
@@ -912,7 +1025,6 @@ public class UI {
                     System.out.print(owner.getName() + "'s new address: ");
                     String address = in.nextLine();
                     owner.setAddress(address);
-                    in.nextLine();
                     break;
                 case "N":
                 case "n":
@@ -1088,8 +1200,80 @@ public class UI {
 
     }
 
-    private void appointmentsDialogue() {
+    private void searchApps(){
 
+    }
+
+    private void appointmentsDialogue() {
+        System.out.println("--------NOW VIEWING APPOINTMENTS MENU--------");
+        System.out.print("Please make a selection:" +
+                "\n(1) View      - View all scheduled appointments" +
+                "\n(/) Search    - Search from scheduled appointments" +
+                "\n(3) New       - Create a new appointment" +
+                "\n(4) Back to Main Menu" +
+                "\n(0)  Quit" +
+                "\n> ");
+
+        try {
+            int choice = in.nextInt();
+
+            switch (choice) {
+                case 1:
+                    in.nextLine();
+                    System.out.println(registry.stringAppointments());
+                    appointmentsDialogue();
+                    break;
+                case 2:
+                    in.nextLine();
+                    searchApps();
+                    break;
+                case 3:
+                    in.nextLine();
+                    newAppointment();
+                    appointmentsDialogue();
+                    break;
+                case 4:
+                    mainMenu();
+                    break;
+                case 0:
+                    exit();
+                default:
+                    System.out.println("Invalid entry! Please try again.\n");
+                    appointmentsDialogue();
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid entry! Please try again.\n");
+            in.nextLine();
+            appointmentsDialogue();
+        }
+    }
+
+    private void newAppointment() {
+        System.out.println("--------NOW SCHEDULING NEW APPOINTMENT--------");
+        if (registry.getPets().isEmpty()) {
+            System.out.println("---------REGISTERED PETS---------" +
+                    "\nNo pets registered. Please register a pet before attempting" +
+                    " to schedule an appointment.");
+            appointmentsDialogue();
+        } else {
+            System.out.println(registry.stringPets());
+        }
+
+        try {
+            System.out.print("Please enter the number of the pet:\n> ");
+            int pet = in.nextInt();
+            System.out.print("Please enter the date of the appointment: ");
+            String date = in.nextLine();
+            System.out.print("Please enter the time of the appointment: ");
+            String time = in.nextLine();
+            registry.newAppointment(new Appointment(registry.getPets().get(--pet), date, time));
+            Appointment app = registry.getAppointments().get(registry.getAppSize() - 1);
+            registry.getPets().get(--pet).addAppointment(app);
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid entry! Please try again.\n");
+            in.nextLine();
+            newAppointment();
+        }
     }
 
     private void saveLoadDialogue() {
