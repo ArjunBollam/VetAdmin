@@ -1,9 +1,6 @@
 package edu.cpp.cs.cs141.vetadmin;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -37,7 +34,7 @@ public class UI {
         this.registry = regisrty;
         in = new Scanner(System.in);
         first = true;
-        debug = true;
+        debug = false;
         saves = new ArrayList<>();
 
     }
@@ -70,7 +67,7 @@ public class UI {
                 "\nPlease make a selection: " +
                 "\n(1) Registry     - View or search for pets and owners" +
                 "\n(2) Appointments - View, edit, and create appointments" +
-                "\n(/) Save/Load    - Save and load registries" +
+                "\n(3) Save/Load    - Save and load registries" +
                 "\n(0)  Quit" +
                 "\n> ");
 
@@ -92,7 +89,7 @@ public class UI {
                     break;
                 case 0:
                     in.nextLine();
-                    exit();
+                    exit(false);
                 default:
                     System.out.println("Invalid entry! Please try again.\n");
                     mainMenu();
@@ -153,7 +150,7 @@ public class UI {
                     mainMenu();
                     break;
                 case 0:
-                    exit();
+                    exit(false);
                 default:
                     System.out.println("Invalid entry! Please try again.\n");
                     registryDialogue();
@@ -201,7 +198,7 @@ public class UI {
                     registryDialogue();
                     break;
                 case 0:
-                    exit();
+                    exit(false);
                 default:
                     System.out.println("Invalid entry! Please try again.\n");
                     viewPets();
@@ -263,7 +260,7 @@ public class UI {
                     registerOwner(pet);
                     break;
                 case 0:
-                    exit();
+                    exit(false);
                 default:
                     System.out.println("Invalid entry! Please try again.\n");
                     petOptions(pet);
@@ -688,7 +685,7 @@ public class UI {
                     break;
                 case 0:
                     in.nextLine();
-                    exit();
+                    exit(false);
                 default:
                     System.out.println("Invalid entry! Please try again.\n");
                     registerPet();
@@ -909,7 +906,7 @@ public class UI {
                     registryDialogue();
                     break;
                 case 0:
-                    exit();
+                    exit(false);
                 default:
                     System.out.println("Invalid entry! Please try again.\n");
                     viewOwners();
@@ -965,7 +962,7 @@ public class UI {
                     addPet(owner, false);
                     break;
                 case 0:
-                    exit();
+                    exit(false);
                 default:
                     System.out.println("Invalid entry! Please try again.\n");
                     ownerOptions(owner);
@@ -1252,7 +1249,7 @@ public class UI {
                     mainMenu();
                     break;
                 case 0:
-                    exit();
+                    exit(false);
                 default:
                     System.out.println("Invalid entry! Please try again.\n");
                     appointmentsDialogue();
@@ -1298,7 +1295,7 @@ public class UI {
         System.out.print("Please make a selection:" +
                 "\n(1) Save   - Save the current registry" +
                 "\n(2) Load   - Load a previously saved registry" +
-                "\n(3) Back" +
+                "\n(3) Back to Main Menu" +
                 "\n(0)  Quit" +
                 "\n> ");
 
@@ -1309,16 +1306,17 @@ public class UI {
             switch (choice) {
                 case 1:
                     save();
+                    mainMenu();
                     break;
                 case 2:
                     load();
+                    mainMenu();
                     break;
                 case 3:
-                    in.nextLine();
                     mainMenu();
                     break;
                 case 0:
-                    exit();
+                    exit(false);
                 default:
                     System.out.println("Invalid entry! Please try again.\n");
                     saveLoadDialogue();
@@ -1335,8 +1333,9 @@ public class UI {
         System.out.print("Please enter the name you would like to save" +
                 " this registry as:\n> ");
         String name = in.nextLine();
+        saves.add(name);
         try{
-            FileOutputStream dest = new FileOutputStream(name);
+            FileOutputStream dest = new FileOutputStream(name + ".dat");
             ObjectOutputStream out = new ObjectOutputStream(dest);
 
             out.writeObject(registry);
@@ -1347,12 +1346,12 @@ public class UI {
             System.out.println("-----" + registry.getPets().size() +
                     " PETS, " + registry.getOwners().size() +
                     " OWNERS, AND " + registry.getAppointments() +
-                    " APPOINMENTS SAVED-----");
+                    " APPOINTMENTS SAVED-----");
         }catch(FileNotFoundException e){
             System.out.println("This file does not exist! Please try again.");
             save();
         }catch (IOException e){
-            System.out.println("An error occcured while attempting to save the registry.");
+            System.out.println("An error occurred while attempting to save the registry.");
             saveLoadDialogue();
         }catch(InputMismatchException e){
             System.out.println("Invalid entry! Please try again.\n");
@@ -1362,7 +1361,53 @@ public class UI {
     }
 
     private void load(){
+        if(saves.isEmpty()) {
+            System.out.println("----------NO SAVES FOUND----------");
+            saveLoadDialogue();
+        }
 
+        System.out.println("--------NOW LOADING--------");
+        displaySaves();
+        System.out.print("Please enter the number of the save you would like to load:\n> ");
+
+        try{
+            int choice = in.nextInt();
+            in.nextLine();
+
+            FileInputStream source = new FileInputStream(saves.get(--choice) + ".dat");
+            ObjectInputStream in = new ObjectInputStream(source);
+            registry = (Registry)in.readObject();
+
+            in.close();
+            source.close();
+            System.out.println();
+            System.out.println("-----" + registry.getPets().size() +
+                    " PETS, " + registry.getOwners().size() +
+                    " OWNERS, AND " + registry.getAppointments() +
+                    " APPOINTMENTS LOADED-----");
+        }catch(ClassNotFoundException e) {
+            System.out.println("An error occurred while attempting to load the registry.");
+            saveLoadDialogue();
+        } catch(FileNotFoundException e){
+            System.out.println("This file does not exist! Please try again.");
+            load();
+        }catch (IOException e){
+            System.out.println("An error occurred while attempting to load the registry.");
+            saveLoadDialogue();
+        }catch(InputMismatchException e){
+            System.out.println("Invalid entry! Please try again.\n");
+            in.nextLine();
+            load();
+        }
+    }
+
+    private void displaySaves(){
+        String str = "---------PREVIOUS SAVES---------";
+        for (String save : saves) {
+            int index = saves.indexOf(save) + 1;
+            str += "\n" + index + ". " + save;
+        }
+        System.out.println(str);
     }
 
     public static void print(String str) {
@@ -1373,8 +1418,28 @@ public class UI {
         System.out.println("");
     }
 
-    private void exit() {
-        //save
+    private void exit(boolean checked) {
+        if(!checked)
+            System.out.println("Would you like to save before exiting (Y/N)?");
+        
+        try{
+            String choice = in.nextLine();
+            
+            switch(choice){
+                case "Y":case "y":
+                    save();
+                case "N":case "n":
+                    break;
+                default:
+                    System.out.println("Invalid input! Please try again.");
+                    exit(true);
+            }
+        }catch(InputMismatchException e){
+            System.out.println("Invalid input! Please try again.");
+            in.nextLine();
+            exit(true);
+        }
+
         System.out.println("Goodbye!");
         System.exit(0);
     }
