@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * {@link #age}, medical history ({@link #medHist}),
  * {@link #vaccinations}, and {@link #appointments}.
  */
-public abstract class Pet implements Comparable<Pet> {
+public abstract class Pet implements Comparable<Pet>, java.io.Serializable {
 
     /**
      * The {@link Owner} that the {@code this} {@link Pet}

@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * {@link #name}, {@link #address}, and {@link #phone} number of
  * the owner.
  */
-public class Owner implements Comparable<Owner> {
+public class Owner implements Comparable<Owner>, java.io.Serializable {
 
     /**
      * The name of the owner as a {@code String}

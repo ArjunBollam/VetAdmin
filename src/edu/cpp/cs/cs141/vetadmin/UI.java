@@ -1341,7 +1341,7 @@ public class UI {
             System.out.println();
             System.out.println("-----" + registry.getPets().size() +
                     " PETS, " + registry.getOwners().size() +
-                    " OWNERS, AND " + registry.getAppointments() +
+                    " OWNERS, AND " + registry.getAppointments().size() +
                     " APPOINTMENTS SAVED-----");
         }catch(FileNotFoundException e){
             System.out.println("This file does not exist! Please try again.");
@@ -1380,7 +1380,7 @@ public class UI {
             System.out.println();
             System.out.println("-----" + registry.getPets().size() +
                     " PETS, " + registry.getOwners().size() +
-                    " OWNERS, AND " + registry.getAppointments() +
+                    " OWNERS, AND " + registry.getAppointments().size() +
                     " APPOINTMENTS LOADED-----");
         }catch(ClassNotFoundException e) {
             System.out.println("An error occurred while attempting to load the registry." +

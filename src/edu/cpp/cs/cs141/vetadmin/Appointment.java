@@ -5,7 +5,7 @@ package edu.cpp.cs.cs141.vetadmin;
  * {@link #date} and {@link #time} of the appointment, the {@link Pet} object
  * {@link #client}, and the {@link #status} of the appointment.
  */
-public class Appointment implements Comparable<Appointment> {
+public class Appointment implements Comparable<Appointment>, java.io.Serializable {
 
     /**
      * The date of the appointment as a {@code String}

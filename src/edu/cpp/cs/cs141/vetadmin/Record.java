@@ -4,7 +4,7 @@ package edu.cpp.cs.cs141.vetadmin;
  * This class represents the record for a {@link Pet}. It contains
  * all of the information for one specific {@link Pet}.
  */
-public class Record implements Comparable<Record> {
+public class Record implements Comparable<Record>, java.io.Serializable {
 
     /**
      * The {@link Pet} that the record is for
