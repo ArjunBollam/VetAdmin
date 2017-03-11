@@ -113,10 +113,10 @@ public class Appointment implements Comparable<Appointment>, java.io.Serializabl
                 "\n   Status: " + stat;
     }
 
-    public void print() {
-        UI.print(this.toString());
-    }
-
+    /**
+     * @param app The appointment to compare with {@code this} {@link Appointment}
+     * @return The integer returned by the compareTo method
+     */
     @Override
     public int compareTo(Appointment app) {
         return this.client.getOwner().getName().compareToIgnoreCase(

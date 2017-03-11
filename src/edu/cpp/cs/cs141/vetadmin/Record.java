@@ -46,10 +46,11 @@ public class Record implements Comparable<Record>, java.io.Serializable {
                 "\nCurrent Appointments\n" + pet.stringAppointments();
     }
 
-    public void print() {
-        UI.print(this.toString());
-    }
-
+    /**
+     * @param rec The {@link Record} to be compared to {@code this}
+     *            {@link Record}.
+     * @return The int returned by the compareTo method
+     */
     @Override
     public int compareTo(Record rec){
         return pet.getName().compareToIgnoreCase(rec.pet.getName());

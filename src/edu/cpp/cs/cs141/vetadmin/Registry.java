@@ -28,6 +28,9 @@ public class Registry implements Serializable {
      */
     private ArrayList<Record> records;
 
+    /**
+     * This {@code ArrayList} will contain all of the {@link Appointment}s
+     */
     private ArrayList<Appointment> appointments;
 
     /**
@@ -62,18 +65,34 @@ public class Registry implements Serializable {
         return records;
     }
 
+    /**
+     * @param index The index of the {@link Record}
+     * @return The {@link Record}
+     */
     public Record getRecord(int index) {
         return records.get(index);
     }
 
+    /**
+     * @return The booked {@link Appointment}s
+     */
     public ArrayList<Appointment> getAppointments() {
         return appointments;
     }
 
+    /**
+     * @return The size of {@link #appointments}
+     */
     public int getAppSize() {
         return appointments.size();
     }
 
+    /**
+     * This method will resolve an appointment and remove
+     * it from {@link #appointments}.
+     *
+     * @param app The {@link Appointment} to be resolved
+     */
     public void resolveApp(Appointment app) {
         app.setStatus(1);
         appointments.remove(app);
@@ -147,6 +166,9 @@ public class Registry implements Serializable {
         return str;
     }
 
+    /**
+     * The detailed {@code String} representation of {@link #pets}
+     */
     public void allPets() {
         sort();
         String str = "----------VIEWING ALL PETS----------";
@@ -158,6 +180,9 @@ public class Registry implements Serializable {
         UI.print(str);
     }
 
+    /**
+     * The detailed {@code String} representation of {@link #owners}
+     */
     public void allOwners() {
         sort();
         String str = "----------VIEWING ALL OWNERS----------";
@@ -169,6 +194,9 @@ public class Registry implements Serializable {
         UI.print(str);
     }
 
+    /**
+     * @return The {@code String} representation of {@link #owners} names
+     */
     public String stringOwners() {
         sort();
         String str = "---------REGISTERED OWNERS---------";
@@ -180,6 +208,9 @@ public class Registry implements Serializable {
         return str;
     }
 
+    /**
+     * @return The {@code String} representation of {@link #pets} names
+     */
     public String stringPets() {
         sort();
         String str = "---------REGISTERED PETS---------";
@@ -191,6 +222,9 @@ public class Registry implements Serializable {
         return str;
     }
 
+    /**
+     * @return The detailed {@code String} representation of {@link #pets}
+     */
     public String stringAppointments() {
         sort();
         String str = "---------SCHEDULED APPOINTMENTS---------";
@@ -299,6 +333,9 @@ public class Registry implements Serializable {
         pets.get(index).getOwner().setPhone(phone);
     }
 
+    /**
+     * This method sorts the various {@code ArrayList}s
+     */
     public void sort() {
         Collections.sort(records);
         Collections.sort(pets);

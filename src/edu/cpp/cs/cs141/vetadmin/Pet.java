@@ -27,7 +27,7 @@ public abstract class Pet implements Comparable<Pet>, java.io.Serializable {
     private AnimalType type;
 
     /**
-     * The age of the pet as an {@code int}
+     * The age of the pet as a {@code double}
      */
     private double age;
 
@@ -222,11 +222,6 @@ public abstract class Pet implements Comparable<Pet>, java.io.Serializable {
         return appointments;
     }
 
-    public void resolveApp(Appointment app) {
-        app.setStatus(1);
-        appointments.remove(app);
-    }
-
     /**
      * @return The {@code String} representation of {@code this} {@link Pet}'s
      * {@link #appointments}
@@ -243,10 +238,6 @@ public abstract class Pet implements Comparable<Pet>, java.io.Serializable {
         return str;
     }
 
-    public void printAppointments() {
-        UI.print(this.stringAppointments());
-    }
-
     /**
      * This method will add to {@code this} {@link Pet}'s
      * {@link #appointments}
@@ -258,10 +249,14 @@ public abstract class Pet implements Comparable<Pet>, java.io.Serializable {
     }
 
     /**
-     * @param index The index of the appointment to be removed
+     * This method will resolve an appointment and remove
+     * it from {@link #appointments}.
+     *
+     * @param app The {@link Appointment} to be resolved
      */
-    public void removeAppointment(int index) {
-        appointments.remove(index);
+    public void resolveApp(Appointment app) {
+        app.setStatus(1);
+        appointments.remove(app);
     }
 
     @Override

@@ -11,6 +11,10 @@ import java.util.Scanner;
  */
 public class UI {
 
+    /**
+     * These {@code boolean} flags are used to enhance the UI by
+     * preventing text from appearing more than it needs to.
+     */
     private boolean first, debug;
 
     /**
@@ -23,8 +27,12 @@ public class UI {
      */
     private Scanner in;
 
-
+    /**
+     * This {@code ArrayList} will contain the saves
+     * from this session
+     */
     private ArrayList<String> saves;
+
     /**
      * The constructor for the {@link UI} class.
      *
@@ -100,6 +108,9 @@ public class UI {
         }
     }
 
+    /**
+     * This method contains the options that pertain to the {@link Registry}
+     */
     private void registryDialogue() {
         System.out.println("--------NOW VIEWING REGISTRY MENU--------");
         System.out.print("Please make a selection:" +
@@ -156,6 +167,9 @@ public class UI {
         }
     }
 
+    /**
+     * This method contains the options that pertain to the {@link Pet}s
+     */
     private void viewPets() {
         if (registry.getPets().isEmpty()) {
             System.out.println("---------REGISTERED PETS---------" +
@@ -204,6 +218,11 @@ public class UI {
         }
     }
 
+    /**
+     * This method contains the options that pertain to a specific {@link Pet}
+     *
+     * @param pet The selected {@link Pet}
+     */
     private void petOptions(Pet pet) {
         System.out.println("--------NOW VIEWING " + pet.getName().toUpperCase() + "'S RECORD--------");
         System.out.println(registry.getRecord(registry.getPets().indexOf(pet)));
@@ -266,6 +285,12 @@ public class UI {
         }
     }
 
+    /**
+     * This method contains the options that pertain to editing
+     * a specific {@link Pet}
+     *
+     * @param pet The selected {@link Pet}
+     */
     private void editPet(Pet pet) {
         System.out.println("--------NOW EDITING " + pet.getName().toUpperCase() +
                 "'S RECORD--------");
@@ -284,6 +309,12 @@ public class UI {
         petOptions(pet);
     }
 
+    /**
+     * This method contains the options that pertain to
+     * editing a specific {@link Pet}'s name
+     *
+     * @param pet The selected {@link Pet}
+     */
     private void newPetName(Pet pet) {
         System.out.print("Would you like to change " + pet.getName() +
                 "'s name (Y/N)?\n> ");
@@ -311,6 +342,12 @@ public class UI {
         }
     }
 
+    /**
+     * This method contains the options that pertain to
+     * editing a specific {@link Pet}'s age
+     *
+     * @param pet The selected {@link Pet}
+     */
     private void newPetAge(Pet pet) {
         System.out.print("Would you like to change " + pet.getName() +
                 "'s age (Y/N)?\n> ");
@@ -340,6 +377,13 @@ public class UI {
 
     }
 
+    /**
+     * This method contains the options that pertain to editing
+     * a specific {@link Pet}'s medical history
+     *
+     * @param pet The selected {@link Pet}
+     * @param checked A {@code boolean} flag used to prevent redundant text
+     */
     private void addMedHistDialogue(Pet pet, boolean checked) {
         String choice;
         if (!checked) {
@@ -393,6 +437,13 @@ public class UI {
 
     }
 
+    /**
+     * This method contains the options that also pertain to editing
+     * a specific {@link Pet}'s medical history
+     *
+     * @param pet The selected {@link Pet}
+     * @param checked A {@code boolean} flag used to prevent redundant text
+     */
     private void removeMedHistDialogue(Pet pet, boolean checked) {
         String choice;
         if (!checked) {
@@ -444,6 +495,13 @@ public class UI {
         }
     }
 
+    /**
+     * This method contains the options that pertain to editing
+     * a specific {@link Pet}'s vaccinations
+     *
+     * @param pet The selected {@link Pet}
+     * @param checked A {@code boolean} flag used to prevent redundant text
+     */
     private void addVaccDialogue(Pet pet, boolean checked) {
         String choice;
         if (!checked) {
@@ -495,6 +553,13 @@ public class UI {
         }
     }
 
+    /**
+     * This method contains the options that also pertain to editing
+     * a specific {@link Pet}'s vaccinations
+     *
+     * @param pet The selected {@link Pet}
+     * @param checked A {@code boolean} flag used to prevent redundant text
+     */
     private void removeVaccDialogue(Pet pet, boolean checked) {
         String choice;
         if (!checked) {
@@ -545,6 +610,13 @@ public class UI {
         }
     }
 
+    /**
+     * This method contains the options that pertain to adding to
+     * a specific {@link Pet}'s appointments
+     *
+     * @param pet The selected {@link Pet}
+     * @param checked A {@code boolean} flag used to prevent redundant text
+     */
     private void addAppDialogue(Pet pet, boolean checked) {
         String choice;
         if (!checked) {
@@ -599,6 +671,13 @@ public class UI {
         }
     }
 
+    /**
+     * This method contains the options that pertain to resolving
+     * a specific {@link Pet}'s appointment(s)
+     *
+     * @param pet The selected {@link Pet}
+     * @param checked A {@code boolean} flag used to prevent redundant text
+     */
     private void resolveAppDialogue(Pet pet, boolean checked) {
         String choice;
         if (!checked) {
@@ -653,6 +732,9 @@ public class UI {
         }
     }
 
+    /**
+     * This method contains the options that pertain to creating a {@link Pet}
+     */
     private void registerPet() {
         System.out.println("--------REGISTERING NEW PET--------");
         System.out.print("What kind of animal is this pet?" +
@@ -688,6 +770,9 @@ public class UI {
         }
     }
 
+    /**
+     * This method contains the options that pertain to creating a {@link Cat}
+     */
     private void newCat() {
         System.out.print("Name: ");
         String name = in.nextLine();
@@ -737,6 +822,9 @@ public class UI {
         }
     }
 
+    /**
+     * This method contains the options that pertain to creating a {@link Dog}
+     */
     private void newDog() {
         System.out.print("Name: ");
         String name = in.nextLine();
@@ -786,6 +874,9 @@ public class UI {
         }
     }
 
+    /**
+     * This method contains the options that pertain to creating a {@link Fish}
+     */
     private void newFish() {
         System.out.print("Name: ");
         String name = in.nextLine();
@@ -835,6 +926,11 @@ public class UI {
         }
     }
 
+    /**
+     * This method contains the options that pertain to creating an {@link Owner}
+     *
+     * @param pet The selected {@link Pet}
+     */
     private void registerOwner(Pet pet) {
         System.out.println("--------REGISTERING " + pet.getName().toUpperCase() +
                 "'S OWNER--------");
@@ -857,10 +953,18 @@ public class UI {
         petOptions(pet);
     }
 
+    /**
+     * This method contains the options that pertain to deregistering a {@link Pet}
+     *
+     * @param pet The selected {@link Pet}
+     */
     private void deregisterPet(Pet pet) {
 
     }
 
+    /**
+     * This method contains the options that pertain to the {@link Owner}s
+     */
     private void viewOwners() {
         if (registry.getOwners().isEmpty()) {
             System.out.println("---------REGISTERED OWNERS---------" +
@@ -909,6 +1013,11 @@ public class UI {
         }
     }
 
+    /**
+     * This method contains the options that pertain to a specific {@link Owner}
+     *
+     * @param owner The selected {@link Owner}
+     */
     private void ownerOptions(Owner owner) {
         System.out.println("--------NOW VIEWING " + owner.getName().toUpperCase() + "'S INFO--------");
         System.out.println(owner);
@@ -965,6 +1074,12 @@ public class UI {
         }
     }
 
+    /**
+     * This method contains the options that pertain to editing
+     * a specific {@link Owner}
+     *
+     * @param owner The selected {@link Owner}
+     */
     private void editOwner(Owner owner) {
         System.out.println("--------NOW EDITING " + owner.getName().toUpperCase() +
                 "'S INFO--------");
@@ -978,6 +1093,12 @@ public class UI {
         ownerOptions(owner);
     }
 
+    /**
+     * This method contains the options that pertain to
+     * editing a specific {@link Owner}'s name
+     *
+     * @param owner The selected {@link Owner}
+     */
     private void newOwnerName(Owner owner) {
         System.out.print("Would you like to change " + owner.getName() +
                 "'s name (Y/N)?\n> ");
@@ -1005,6 +1126,12 @@ public class UI {
         }
     }
 
+    /**
+     * This method contains the options that pertain to
+     * editing a specific {@link Owner}'s address
+     *
+     * @param owner The selected {@link Owner}
+     */
     private void newOwnerAddress(Owner owner) {
         System.out.print("Would you like to change " + owner.getName() +
                 "'s address (Y/N)?\n> ");
@@ -1032,6 +1159,12 @@ public class UI {
         }
     }
 
+    /**
+     * This method contains the options that pertain to
+     * editing a specific {@link Owner}'s phone number
+     *
+     * @param owner The selected {@link Owner}
+     */
     private void newOwnerPhone(Owner owner) {
         System.out.print("Would you like to change " + owner.getName() +
                 "'s phone number (Y/N)?\n> ");
@@ -1059,6 +1192,13 @@ public class UI {
         }
     }
 
+    /**
+     * This method contains the options that pertain to linking a {@link Pet}
+     * to an {@link Owner}
+     *
+     * @param owner The selected {@link Owner}
+     * @param checked A {@code boolean} flag used to prevent redundant text
+     */
     private void addPet(Owner owner, boolean checked) {
         String choice;
         if (!checked) {
@@ -1116,6 +1256,13 @@ public class UI {
 
     }
 
+    /**
+     * This method contains the options that pertain to unlinking a {@link Pet}
+     * from an {@link Owner}
+     *
+     * @param owner The selected {@link Owner}
+     * @param checked A {@code boolean} flag used to prevent redundant text
+     */
     private void removePet(Owner owner, boolean checked) {
         String choice;
         if (!checked) {
@@ -1168,10 +1315,18 @@ public class UI {
         }
     }
 
+    /**
+     * This method contains the options that pertain to deregistering a {@link Owner}
+     *
+     * @param owner The selected {@link Owner}
+     */
     private void deregisterOwner(Owner owner) {
 
     }
 
+    /**
+     *  This method contains the options that pertain to registering a {@link Owner}
+     */
     private void registerOwner() {
         System.out.println("--------REGISTERING NEW OWNER--------");
 
@@ -1188,14 +1343,24 @@ public class UI {
         registry.sort();
     }
 
+    /**
+     * This method will be used to search the registry
+     */
     private void searchRegistry() {
 
     }
 
+    /**
+     * This method will be used to search applications
+     */
     private void searchApps() {
 
     }
 
+    /**
+     * This method will handle the options that pertain to
+     * {@link Appointment}s
+     */
     private void appointmentsDialogue() {
         System.out.println("--------NOW VIEWING APPOINTMENTS MENU--------");
         System.out.print("Please make a selection:" +
@@ -1252,6 +1417,10 @@ public class UI {
         }
     }
 
+    /**
+     * This method will handle options that pertain to creating
+     * {@link Appointment}s
+     */
     private void newAppointment() {
         System.out.println("--------NOW SCHEDULING NEW APPOINTMENT--------");
         if (registry.getPets().isEmpty()) {
@@ -1281,6 +1450,10 @@ public class UI {
         }
     }
 
+    /**
+     * This method will handle options that pertain to
+     * saving and loading the {@link Registry}.
+     */
     private void saveLoadDialogue() {
         System.out.println("--------NOW IN SAVE/LOAD MENU--------");
         System.out.print("Please make a selection:" +
@@ -1319,6 +1492,9 @@ public class UI {
         }
     }
 
+    /**
+     * This method runs the save dialogue
+     */
     private void save(){
         System.out.println("--------NOW SAVING--------");
         if(saves.isEmpty())
@@ -1357,6 +1533,9 @@ public class UI {
         }
     }
 
+    /**
+     * This method runs the load dialogue
+     */
     private void load(){
         if(saves.isEmpty())
             System.out.println("----------NO SAVES FOUND----------");
@@ -1396,6 +1575,10 @@ public class UI {
             saveLoadDialogue();
         }
     }
+
+    /**
+     * The {@code String} representation of {@link #saves}
+     */
     private void displaySaves(){
         String str = "---------CURRENT SAVES---------";
         for (String save : saves) {
@@ -1405,14 +1588,19 @@ public class UI {
         System.out.println(str);
     }
 
+    /**
+     * @param str The {@code String} to be printed
+     */
     public static void print(String str) {
         System.out.println(str);
     }
 
-    public static void printLn() {
-        System.out.println("");
-    }
 
+    /**
+     * This method is run when exiting the program
+     *
+     * @param checked A {@code boolean} flag used to prevent redundant text
+     */
     private void exit(boolean checked) {
         if(!checked)
             System.out.print("Would you like to save before exiting (Y/N)?\n> ");
