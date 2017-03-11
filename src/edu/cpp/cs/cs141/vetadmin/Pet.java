@@ -149,7 +149,7 @@ public abstract class Pet implements Comparable<Pet> {
         }
         for (String line : medHist) {
             int index = medHist.indexOf(line) + 1;
-            str += index + ". " + line + "\n   ";
+            str += "   " + index + ". " + line + "\n";
         }
         return str;
     }
@@ -191,7 +191,7 @@ public abstract class Pet implements Comparable<Pet> {
         }
         for (String line : vaccinations) {
             int index = vaccinations.indexOf(line) + 1;
-            str += index + ". " + line + "\n   ";
+            str += "   " + index + ". " + line + "\n";
         }
         return str;
     }
@@ -238,7 +238,7 @@ public abstract class Pet implements Comparable<Pet> {
         }
         for (Appointment line : appointments) {
             int place = appointments.indexOf(line) + 1;
-            str += place + ". " + line + "\n   ";
+            str += place + ". " + line + "\n";
         }
         return str;
     }

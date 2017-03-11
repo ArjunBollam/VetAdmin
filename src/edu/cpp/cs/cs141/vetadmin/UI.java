@@ -34,7 +34,7 @@ public class UI {
         this.registry = regisrty;
         in = new Scanner(System.in);
         first = true;
-        debug = false;
+        debug = true;
         saves = new ArrayList<>();
 
     }
@@ -53,7 +53,9 @@ public class UI {
             registry.newCat("Harold", 3, 2);
             registry.newDog("Lollipop", 2, 4);
             registry.newFish("Kai", 3, 1);
-            registry.getOwners().get(0).addPet(registry.getPets().get(1));
+            registry.getOwners().get(0).addPet(registry.getPets().get(2));
+            registry.getPets().get(2).setOwner(registry.getOwners().get(0));
+            registry.newAppointment(new Appointment(registry.getPets().get(2), "3/11/17", "11:00 AM"));
         }
 
         mainMenu();
@@ -113,38 +115,32 @@ public class UI {
 
         try {
             int choice = in.nextInt();
+            in.nextLine();
 
             switch (choice) {
                 case 1:
-                    in.nextLine();
                     viewPets();
                     break;
                 case 2:
-                    in.nextLine();
                     viewOwners();
                     break;
                 case 3:
-                    in.nextLine();
                     System.out.println(registry);
                     registryDialogue();
                     break;
                 case 4:
-                    in.nextLine();
                     registerPet();
                     System.out.println(registry.stringPets());
                     registryDialogue();
                     break;
                 case 5:
-                    in.nextLine();
                     registerOwner();
                     registryDialogue();
                     break;
                 case 6:
-                    in.nextLine();
                     searchRegistry();
                     break;
                 case 7:
-                    in.nextLine();
                     mainMenu();
                     break;
                 case 0:
@@ -289,8 +285,8 @@ public class UI {
     }
 
     private void newPetName(Pet pet) {
-        System.out.println("Would you like to change " + pet.getName() +
-                "'s name (Y/N)?");
+        System.out.print("Would you like to change " + pet.getName() +
+                "'s name (Y/N)?\n> ");
         try {
             String choice = in.nextLine();
 
@@ -316,8 +312,8 @@ public class UI {
     }
 
     private void newPetAge(Pet pet) {
-        System.out.println("Would you like to change " + pet.getName() +
-                "'s age (Y/N)?");
+        System.out.print("Would you like to change " + pet.getName() +
+                "'s age (Y/N)?\n> ");
         try {
             String choice = in.nextLine();
 
@@ -347,7 +343,7 @@ public class UI {
     private void addMedHistDialogue(Pet pet, boolean checked) {
         String choice;
         if (!checked) {
-            System.out.println("Would you like to add medical history (Y/N)?");
+            System.out.print("Would you like to add medical history (Y/N)?\n> ");
             choice = in.nextLine();
         } else
             choice = "y";
@@ -361,7 +357,7 @@ public class UI {
                     System.out.print("Status (Current or Treated?): ");
                     String status = in.nextLine();
                     pet.addMedHist(disease, status);
-                    System.out.println("Add another (Y/N)?");
+                    System.out.print("Add another (Y/N)?\n> ");
                     try {
 
                         choice = in.nextLine();
@@ -400,7 +396,7 @@ public class UI {
     private void removeMedHistDialogue(Pet pet, boolean checked) {
         String choice;
         if (!checked) {
-            System.out.println("Would you like to remove medical history (Y/N)?");
+            System.out.print("Would you like to remove medical history (Y/N)?\n> ");
             choice = in.nextLine();
         } else
             choice = "y";
@@ -414,7 +410,7 @@ public class UI {
                     int index = in.nextInt();
                     in.nextLine();
                     pet.removeMedHist(--index);
-                    System.out.println("Remove another (Y/N)?");
+                    System.out.print("Remove another (Y/N)?\n> ");
                     try {
                         choice = in.nextLine();
                         switch (choice) {
@@ -451,7 +447,7 @@ public class UI {
     private void addVaccDialogue(Pet pet, boolean checked) {
         String choice;
         if (!checked) {
-            System.out.println("Would you like to add vaccination history (Y/N)?");
+            System.out.print("Would you like to add vaccination history (Y/N)?\n> ");
             choice = in.nextLine();
         } else
             choice = "y";
@@ -465,7 +461,7 @@ public class UI {
                     System.out.print("Date: ");
                     String date = in.nextLine();
                     pet.addVaccination(vacc, date);
-                    System.out.println("Add another (Y/N)?");
+                    System.out.print("Add another (Y/N)?\n> ");
                     try {
                         choice = in.nextLine();
                         switch (choice) {
@@ -502,7 +498,7 @@ public class UI {
     private void removeVaccDialogue(Pet pet, boolean checked) {
         String choice;
         if (!checked) {
-            System.out.println("Would you like to remove a vaccination from history (Y/N)?");
+            System.out.print("Would you like to remove a vaccination from history (Y/N)?\n> ");
             choice = in.nextLine();
         } else
             choice = "y";
@@ -515,7 +511,7 @@ public class UI {
                     System.out.print("Please enter the number of the line:\n> ");
                     int index = in.nextInt();
                     pet.removeMedHist(--index);
-                    System.out.println("Remove another (Y/N)?");
+                    System.out.print("Remove another (Y/N)?\n> ");
                     try {
                         choice = in.nextLine();
                         switch (choice) {
@@ -552,8 +548,8 @@ public class UI {
     private void addAppDialogue(Pet pet, boolean checked) {
         String choice;
         if (!checked) {
-            System.out.println("Would you like to schedule an appointment" +
-                    " for " + pet.getName() + " (Y/N)?");
+            System.out.print("Would you like to schedule an appointment" +
+                    " for " + pet.getName() + " (Y/N)?\n> ");
             choice = in.nextLine();
         } else
             choice = "y";
@@ -569,7 +565,7 @@ public class UI {
                     registry.newAppointment(new Appointment(pet, date, time));
                     Appointment app = registry.getAppointments().get(registry.getAppSize() - 1);
                     pet.addAppointment(app);
-                    System.out.println("Add another (Y/N)?");
+                    System.out.print("Add another (Y/N)?\n> ");
                     try {
                         choice = in.nextLine();
                         switch (choice) {
@@ -606,8 +602,8 @@ public class UI {
     private void resolveAppDialogue(Pet pet, boolean checked) {
         String choice;
         if (!checked) {
-            System.out.println("Would you like to mark one of " + pet.getName() + "'s appointments " +
-                    "as resolved? (Y/N)?");
+            System.out.print("Would you like to mark one of " + pet.getName() + "'s appointments " +
+                    "as resolved? (Y/N)?\n> ");
             choice = in.nextLine();
         } else
             choice = "y";
@@ -623,7 +619,7 @@ public class UI {
                     Appointment app = registry.getAppointments().get(--index);
                     registry.resolveApp(app);
                     app.getClient().resolveApp(app);
-                    System.out.println("Mark another (Y/N)?");
+                    System.out.print("Mark another (Y/N)?\n> ");
                     try {
                         choice = in.nextLine();
                         switch (choice) {
@@ -983,8 +979,8 @@ public class UI {
     }
 
     private void newOwnerName(Owner owner) {
-        System.out.println("Would you like to change " + owner.getName() +
-                "'s name (Y/N)?");
+        System.out.print("Would you like to change " + owner.getName() +
+                "'s name (Y/N)?\n> ");
         try {
             String choice = in.nextLine();
 
@@ -1010,8 +1006,8 @@ public class UI {
     }
 
     private void newOwnerAddress(Owner owner) {
-        System.out.println("Would you like to change " + owner.getName() +
-                "'s address (Y/N)?");
+        System.out.print("Would you like to change " + owner.getName() +
+                "'s address (Y/N)?\n> ");
         try {
             String choice = in.nextLine();
 
@@ -1037,8 +1033,8 @@ public class UI {
     }
 
     private void newOwnerPhone(Owner owner) {
-        System.out.println("Would you like to change " + owner.getName() +
-                "'s phone number (Y/N)?");
+        System.out.print("Would you like to change " + owner.getName() +
+                "'s phone number (Y/N)?\n> ");
         try {
             String choice = in.nextLine();
 
@@ -1066,7 +1062,7 @@ public class UI {
     private void addPet(Owner owner, boolean checked) {
         String choice;
         if (!checked) {
-            System.out.println("Would you like to link " + owner.getName() + " to a pet (Y/N)?");
+            System.out.print("Would you like to link " + owner.getName() + " to a pet (Y/N)?\n> ");
             choice = in.nextLine();
         } else
             choice = "y";
@@ -1081,7 +1077,7 @@ public class UI {
                     int pet = in.nextInt();
                     owner.addPet(registry.getPets().get(--pet));
                     owner.getPets().get(owner.getPetsSize() - 1).setOwner(owner);
-                    System.out.println("Link another (Y/N)?");
+                    System.out.print("Link another (Y/N)?\n> ");
                     in.nextLine();
                     try {
 
@@ -1123,7 +1119,7 @@ public class UI {
     private void removePet(Owner owner, boolean checked) {
         String choice;
         if (!checked) {
-            System.out.println("Would you like to unlink a pet from " + owner.getName() + " (Y/N)?");
+            System.out.print("Would you like to unlink a pet from " + owner.getName() + " (Y/N)?\n> ");
             choice = in.nextLine();
         } else
             choice = "y";
@@ -1138,7 +1134,7 @@ public class UI {
                     int pet = in.nextInt();
                     owner.getPets().get(--pet).setOwner(new Owner());
                     owner.removePet(--pet);
-                    System.out.println("Unlink another (Y/N)?");
+                    System.out.print("Unlink another (Y/N)?\n> ");
                     try {
                         choice = in.nextLine();
                         switch (choice) {
@@ -1331,11 +1327,11 @@ public class UI {
             displaySaves();
 
         System.out.print("Please enter the name you would like to save" +
-                " this registry as:\n> ");
+                " this registry as \n(no file extension needed):\n> ");
         String name = in.nextLine();
         saves.add(name);
         try{
-            FileOutputStream dest = new FileOutputStream(name + ".dat");
+            FileOutputStream dest = new FileOutputStream(name + ".ser");
             ObjectOutputStream out = new ObjectOutputStream(dest);
 
             out.writeObject(registry);
@@ -1349,14 +1345,15 @@ public class UI {
                     " APPOINTMENTS SAVED-----");
         }catch(FileNotFoundException e){
             System.out.println("This file does not exist! Please try again.");
-            save();
+            saveLoadDialogue();
         }catch (IOException e){
-            System.out.println("An error occurred while attempting to save the registry.");
+            System.out.println("An error occurred while attempting to save the registry." +
+                    " (IO Exception)");
             saveLoadDialogue();
         }catch(InputMismatchException e){
             System.out.println("Invalid entry! Please try again.\n");
             in.nextLine();
-            save();
+            saveLoadDialogue();
         }
     }
 
@@ -1374,7 +1371,7 @@ public class UI {
             int choice = in.nextInt();
             in.nextLine();
 
-            FileInputStream source = new FileInputStream(saves.get(--choice) + ".dat");
+            FileInputStream source = new FileInputStream(saves.get(--choice) + ".ser");
             ObjectInputStream in = new ObjectInputStream(source);
             registry = (Registry)in.readObject();
 
@@ -1386,18 +1383,20 @@ public class UI {
                     " OWNERS, AND " + registry.getAppointments() +
                     " APPOINTMENTS LOADED-----");
         }catch(ClassNotFoundException e) {
-            System.out.println("An error occurred while attempting to load the registry.");
+            System.out.println("An error occurred while attempting to load the registry." +
+                    " (Class Not Found)");
             saveLoadDialogue();
         } catch(FileNotFoundException e){
             System.out.println("This file does not exist! Please try again.");
-            load();
+            saveLoadDialogue();
         }catch (IOException e){
-            System.out.println("An error occurred while attempting to load the registry.");
+            System.out.println("An error occurred while attempting to load the registry." +
+                    " (IO Exception)");
             saveLoadDialogue();
         }catch(InputMismatchException e){
             System.out.println("Invalid entry! Please try again.\n");
             in.nextLine();
-            load();
+            saveLoadDialogue();
         }
     }
 
@@ -1419,9 +1418,8 @@ public class UI {
     }
 
     private void exit(boolean checked) {
-        in.nextLine();
         if(!checked)
-            System.out.println("Would you like to save before exiting (Y/N)?");
+            System.out.print("Would you like to save before exiting (Y/N)?\n> ");
         
         try{
             String choice = in.nextLine();

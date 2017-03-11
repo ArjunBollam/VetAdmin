@@ -246,6 +246,7 @@ public class Registry implements Serializable {
 
     public void newAppointment(Appointment app) {
         appointments.add(app);
+        app.getClient().addAppointment(app);
     }
 
     /**
