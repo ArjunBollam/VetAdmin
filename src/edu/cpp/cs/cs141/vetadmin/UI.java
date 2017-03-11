@@ -28,13 +28,13 @@ public class UI {
     /**
      * The constructor for the {@link UI} class.
      *
-     * @param regisrty The regisrty to be used
+     * @param registry The registry to be used
      */
-    public UI(Registry regisrty) {
-        this.registry = regisrty;
+    public UI(Registry registry) {
+        this.registry = registry;
         in = new Scanner(System.in);
         first = true;
-        debug = true;
+        debug = false;
         saves = new ArrayList<>();
 
     }
@@ -1358,20 +1358,17 @@ public class UI {
     }
 
     private void load(){
-        if(saves.isEmpty()) {
+        if(saves.isEmpty())
             System.out.println("----------NO SAVES FOUND----------");
-            saveLoadDialogue();
-        }
 
         System.out.println("--------NOW LOADING--------");
-        displaySaves();
-        System.out.print("Please enter the number of the save you would like to load:\n> ");
+        System.out.print("Please enter the name of the registry you would like to load" +
+                " (no file extension needed):\n> ");
 
         try{
-            int choice = in.nextInt();
-            in.nextLine();
+            String name = in.nextLine();
 
-            FileInputStream source = new FileInputStream(saves.get(--choice) + ".ser");
+            FileInputStream source = new FileInputStream(name + ".ser");
             ObjectInputStream in = new ObjectInputStream(source);
             registry = (Registry)in.readObject();
 
@@ -1399,7 +1396,6 @@ public class UI {
             saveLoadDialogue();
         }
     }
-
     private void displaySaves(){
         String str = "---------CURRENT SAVES---------";
         for (String save : saves) {
